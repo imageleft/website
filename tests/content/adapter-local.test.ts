@@ -121,4 +121,3 @@ describe('local content adapter — careers', () => {
     expect(job!.title).toBe('Senior Engineer');
   });
 });
-

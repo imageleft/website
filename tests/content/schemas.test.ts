@@ -74,4 +74,3 @@ describe('Job schema', () => {
     expect(Job.safeParse({ slug: 'x' }).success).toBe(false);
   });
 });
-

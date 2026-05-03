@@ -33,4 +33,3 @@ export async function getJob(slug: string): Promise<Job | null> {
   if (!entry) return null;
   return { ...entry.data, slug: entry.id };
 }
-

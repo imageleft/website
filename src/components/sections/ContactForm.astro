@@ -26,14 +26,16 @@ const inputClass =
       </Text>
     </div>
 
-    {/*
+    {
+      /*
       Form notes:
         - With JS, a small inline script (below) intercepts submit, builds a nicely-formatted
           mailto URL with `subject` and `body` query params, and opens the user's mail client.
         - Without JS, the form falls back to the native mailto+text/plain submission.
           Less pretty, but it still works.
         - `data-mailto-form` is the hook the script uses. `data-to` carries the recipient.
-    */}
+    */
+    }
     <form
       data-mailto-form
       data-to={to}

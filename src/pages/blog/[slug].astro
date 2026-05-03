@@ -27,7 +27,11 @@ const formattedDate = entry.data.publishedAt.toLocaleDateString('en-US', {
 });
 ---
 
-<BaseLayout title={`${entry.data.title} | imageleft`} description={entry.data.excerpt} ogImage="/og/blog.png">
+<BaseLayout
+  title={`${entry.data.title} | imageleft`}
+  description={entry.data.excerpt}
+  ogImage="/og/blog.png"
+>
   <SiteHeader slot="header" />
 
   <article class="py-16">

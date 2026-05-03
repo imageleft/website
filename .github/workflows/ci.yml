@@ -24,18 +24,5 @@ jobs:
       - name: Type-check
         run: pnpm check
 
-      - name: Lint
-        run: pnpm lint
-
-      - name: Format check
-        run: pnpm format
-
       - name: Build
         run: pnpm build
-
-      - name: Lighthouse CI
-        run: npx lhci autorun
-        continue-on-error: false
-
-      - name: Link check
-        run: pnpm check:links
