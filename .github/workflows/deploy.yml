@@ -30,8 +30,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - uses: actions/configure-pages@v5
+        id: pages
 
       - run: pnpm build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
