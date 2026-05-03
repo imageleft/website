@@ -7,7 +7,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://imageleft.com',
+  site: 'https://new.imageleft.com',
   output: 'static',
   integrations: [mdx(), react(), sitemap()],
   vite: {
