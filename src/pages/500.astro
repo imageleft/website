@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Container from '../components/primitives/Container.astro';
+import Heading from '../components/primitives/Heading.astro';
+import Text from '../components/primitives/Text.astro';
+import Button from '../components/primitives/Button.astro';
+import PillBadge from '../components/primitives/PillBadge.astro';
+---
+
+<BaseLayout
+  title="Something Went Wrong | imageleft"
+  description="An unexpected error occurred. Please try again shortly."
+  noindex
+>
+  <SiteHeader slot="header" />
+
+  <section class="dotted-bg relative flex min-h-[70vh] items-center py-24">
+    <Container size="md" class="relative space-y-4 text-center">
+      <PillBadge>500</PillBadge>
+      <Heading level={1} size="7xl">Something broke on our side.</Heading>
+      <Text muted size="lg" class="mx-auto max-w-md">
+        That's on us. Try again in a moment, or let us know if it keeps happening.
+      </Text>
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+        <Button href="/" variant="accent">Back to home</Button>
+        <Button href="/contact" variant="outline">Report this</Button>
+      </div>
+    </Container>
+  </section>
+
+  <SiteFooter slot="footer" />
+</BaseLayout>

@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/sections/SiteHeader.astro';
+import SiteFooter from '../../components/sections/SiteFooter.astro';
+import Container from '../../components/primitives/Container.astro';
+import Heading from '../../components/primitives/Heading.astro';
+import Text from '../../components/primitives/Text.astro';
+import Button from '../../components/primitives/Button.astro';
+import PillBadge from '../../components/primitives/PillBadge.astro';
+import JobCard from '../../components/sections/JobCard.astro';
+import ReadyToBuildCTA from '../../components/sections/ReadyToBuildCTA.astro';
+import { getJobs } from '../../content';
+
+const jobs = await getJobs();
+
+const values = [
+  {
+    title: 'Systems over features',
+    body: 'We focus on building systems that scale, not just shipping features.',
+  },
+  { title: 'Ownership', body: 'Everyone here owns outcomes, not just tasks.' },
+  { title: 'Clarity', body: 'We simplify complexity, in design, code, and communication.' },
+  {
+    title: 'Speed with intention',
+    body: "We move fast, but we don't cut corners that will cost later.",
+  },
+  {
+    title: 'Honest collaboration',
+    body: 'We say what needs to be said, respectfully, and clearly.',
+  },
+];
+---
+
+<BaseLayout
+  title="Careers | imageleft"
+  description="Build products that actually matter. Join a small, focused team working with founders to design and ship real things."
+  ogImage="/og/careers.png"
+>
+  <SiteHeader slot="header" />
+
+  <section class="dotted-bg relative py-24">
+    <Container size="lg" class="relative space-y-6 text-center">
+      <Heading level={1} size="6xl" class="mx-auto max-w-3xl">
+        Build products that actually matter.
+      </Heading>
+      <Text muted class="mx-auto max-w-xl">
+        We're a small, focused team working with founders to design and build real products. If you
+        care about clarity, systems, and doing things properly, you'll fit right in.
+      </Text>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <Button href="#open-roles" variant="accent" size="lg">View Open Roles</Button>
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-16">
+    <Container size="lg">
+      <div class="bg-surface-soft border-border rounded-[var(--radius-lg)] border p-10 md:p-14">
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+          <div class="space-y-6">
+            <PillBadge>How we work</PillBadge>
+            <Heading level={2} size="4xl">What we value</Heading>
+            <Button href="#open-roles" variant="accent">View Open Roles</Button>
+          </div>
+
+          <ol class="space-y-3">
+            {
+              values.map((v, i) => (
+                <li class="bg-surface border-border flex items-start gap-4 rounded-[var(--radius-md)] border p-4">
+                  <span
+                    class="bg-ink-strong text-surface flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-xs font-semibold"
+                    aria-hidden="true"
+                  >
+                    {i + 1}
+                  </span>
+                  <div class="space-y-1">
+                    <h3 class="text-ink text-sm font-semibold">{v.title}</h3>
+                    <p class="text-muted text-sm">{v.body}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section id="open-roles" class="py-24">
+    <Container size="lg">
+      <div class="space-y-3 text-center">
+        <PillBadge dotColor="var(--color-decoration-pink)">Open Roles</PillBadge>
+        <Heading level={2} size="4xl">{jobs.length} role{jobs.length === 1 ? '' : 's'} open</Heading
+        >
+        <Text muted class="mx-auto max-w-xl">
+          Tell us where you'd fit. We respond to every application within a week.
+        </Text>
+      </div>
+
+      {
+        jobs.length === 0 ? (
+          <Text muted class="mt-12 text-center">
+            No open roles right now. Send us a note and we'll keep you in mind.
+          </Text>
+        ) : (
+          <ul class="mt-12 space-y-4">
+            {jobs.map((job) => (
+              <li>
+                <JobCard job={job} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </Container>
+  </section>
+
+  <ReadyToBuildCTA />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>

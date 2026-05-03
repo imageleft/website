@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/sections/SiteHeader.astro';
+import SiteFooter from '../../components/sections/SiteFooter.astro';
+import Container from '../../components/primitives/Container.astro';
+import Heading from '../../components/primitives/Heading.astro';
+import Text from '../../components/primitives/Text.astro';
+import PillBadge from '../../components/primitives/PillBadge.astro';
+import StoryCard from '../../components/sections/StoryCard.astro';
+import ReadyToBuildCTA from '../../components/sections/ReadyToBuildCTA.astro';
+import { getStories } from '../../content';
+
+const stories = await getStories();
+---
+
+<BaseLayout
+  title="Customer Stories | imageleft"
+  description="How founders we've worked with shipped real products. Real metrics, real outcomes."
+  ogImage="/og/stories.png"
+>
+  <SiteHeader slot="header" />
+
+  <section class="dotted-bg relative py-24">
+    <Container size="lg" class="relative space-y-3 text-center">
+      <PillBadge>Customer Stories</PillBadge>
+      <Heading level={1} size="6xl" class="mx-auto max-w-3xl">What founders say</Heading>
+      <Text muted class="mx-auto max-w-xl">
+        We work closely with founders to build products that actually deliver. Here's what that
+        looks like in practice.
+      </Text>
+    </Container>
+  </section>
+
+  <section class="py-16">
+    <Container size="lg">
+      {
+        stories.length === 0 ? (
+          <Text muted class="text-center">
+            No stories yet. Check back soon.
+          </Text>
+        ) : (
+          <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {stories.map((story) => (
+              <li>
+                <StoryCard story={story} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </Container>
+  </section>
+
+  <ReadyToBuildCTA />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>

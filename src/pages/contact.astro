@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import ContactForm from '../components/sections/ContactForm.astro';
+---
+
+<BaseLayout
+  title="Contact | imageleft"
+  description="Get in touch. We respond within 24 hours, no automated sequences."
+  ogImage="/og/contact.png"
+>
+  <SiteHeader slot="header" />
+
+  <ContactForm />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>

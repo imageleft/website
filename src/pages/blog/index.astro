@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/sections/SiteHeader.astro';
+import SiteFooter from '../../components/sections/SiteFooter.astro';
+import Container from '../../components/primitives/Container.astro';
+import Heading from '../../components/primitives/Heading.astro';
+import Text from '../../components/primitives/Text.astro';
+import PillBadge from '../../components/primitives/PillBadge.astro';
+import PostCard from '../../components/sections/PostCard.astro';
+import ReadyToBuildCTA from '../../components/sections/ReadyToBuildCTA.astro';
+import { getBlogPosts } from '../../content';
+
+const posts = await getBlogPosts();
+---
+
+<BaseLayout
+  title="Blog | imageleft"
+  description="Thoughts, lessons, and perspectives from building real products with imageleft."
+  ogImage="/og/blog.png"
+>
+  <SiteHeader slot="header" />
+
+  <section class="dotted-bg relative py-24">
+    <Container size="xl" class="relative">
+      <div class="space-y-3 text-center">
+        <PillBadge>Blog</PillBadge>
+        <Heading level={1} size="6xl">From The Blog</Heading>
+        <Text muted class="mx-auto max-w-xl">
+          Thoughts, lessons, and perspectives from building real products.
+        </Text>
+      </div>
+
+      {
+        posts.length === 0 ? (
+          <Text muted class="mt-16 text-center">
+            No posts yet. Check back soon.
+          </Text>
+        ) : (
+          <ul class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <li>
+                <PostCard post={post} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </Container>
+  </section>
+
+  <ReadyToBuildCTA />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>

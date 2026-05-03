@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import SystemsWeBuild from '../components/sections/SystemsWeBuild.astro';
+import OurServices from '../components/sections/OurServices.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+import BusinessInABox from '../components/sections/BusinessInABox.astro';
+import BlogPreview from '../components/sections/BlogPreview.astro';
+import CustomerStories from '../components/sections/CustomerStories.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import ReadyToBuildCTA from '../components/sections/ReadyToBuildCTA.astro';
+---
+
+<BaseLayout
+  title="imageleft | Software Systems for Ambitious Founders"
+  description="We build scalable software systems for ambitious founders. Product design, development, and AI automation in one place."
+  ogImage="/og/default.png"
+>
+  <SiteHeader slot="header" />
+
+  <Hero />
+  <About />
+  <SystemsWeBuild />
+  <OurServices />
+  <HowItWorks />
+  <BusinessInABox />
+  <BlogPreview />
+  <CustomerStories />
+  <FAQ />
+  <ReadyToBuildCTA />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>

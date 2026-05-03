@@ -1,0 +1,165 @@
+---
+import '../styles/global.css';
+import Container from '../components/primitives/Container.astro';
+import Heading from '../components/primitives/Heading.astro';
+import Text from '../components/primitives/Text.astro';
+import Eyebrow from '../components/primitives/Eyebrow.astro';
+import Button from '../components/primitives/Button.astro';
+import Link from '../components/primitives/Link.astro';
+
+const colors = [
+  { name: '--color-surface', hex: '#FCFCFC', usage: 'page background' },
+  { name: '--color-surface-soft', hex: '#F8F8F7', usage: 'subtle surface / CTA pill bg' },
+  { name: '--color-ink', hex: '#000000', usage: 'primary text' },
+  { name: '--color-ink-strong', hex: '#171616', usage: 'dark CTA block / featured card' },
+  { name: '--color-muted', hex: '#565656', usage: 'secondary text' },
+  { name: '--color-border', hex: '#E9E7EA', usage: 'chrome border' },
+  { name: '--color-border-strong', hex: '#DADADA', usage: 'CTA pill stroke' },
+  { name: '--color-accent', hex: '#8B5CF6', usage: 'brand purple, primary CTA' },
+  { name: '--color-accent-strong', hex: '#7C3AED', usage: 'accent hover / pressed' },
+  { name: '--color-decoration-pink', hex: '#F6BDEC', usage: 'hero decoration / status badge' },
+  {
+    name: '--color-decoration-lavender',
+    hex: '#C4B5FD',
+    usage: 'hero decoration (paired with pink)',
+  },
+];
+
+const radii = [
+  { name: '--radius-sm', value: '0.25rem (4px)' },
+  { name: '--radius-md', value: '0.75rem (12px)' },
+  { name: '--radius-lg', value: '1.5rem (24px)' },
+  { name: '--radius-full', value: '9999px (pill)' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Styleguide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
+    />
+  </head>
+  <body>
+    <Container size="lg" as="main" class="space-y-16 py-12">
+      <header class="space-y-2 border-b border-[var(--color-border)] pb-6">
+        <Eyebrow>imageleft.com</Eyebrow>
+        <Heading level={1} size="5xl">Styleguide</Heading>
+        <Text muted size="lg">
+          Pass-2 token catalog after rendering home / pricing / career frames as PNG. Display font
+          is Playfair Display; sans is Inter.
+        </Text>
+      </header>
+
+      <section class="space-y-4">
+        <Eyebrow>Hero specimen</Eyebrow>
+        <Heading level={2} size="7xl">
+          We Build Scalable Software Systems for <em>Ambitious</em> Founders.
+        </Heading>
+        <Text muted size="lg">Sub-headline body copy at text-lg muted.</Text>
+        <div class="pt-2">
+          <Button variant="accent">Book a Free Call</Button>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <Eyebrow>Colors</Eyebrow>
+        <ul class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {
+            colors.map(({ name, hex, usage }) => (
+              <li class="space-y-2">
+                <div
+                  class="h-20 w-full rounded-md border border-[var(--color-border)]"
+                  style={`background-color: ${hex}`}
+                />
+                <div class="space-y-0.5">
+                  <Text size="sm" class="font-mono">
+                    {name}
+                  </Text>
+                  <Text size="sm" muted class="font-mono">
+                    {hex}
+                  </Text>
+                  <Text size="sm" muted>
+                    {usage}
+                  </Text>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="space-y-4">
+        <Eyebrow>Radii</Eyebrow>
+        <ul class="flex flex-wrap items-end gap-6">
+          {
+            radii.map(({ name, value }) => (
+              <li class="space-y-2 text-center">
+                <div
+                  class="h-20 w-20 border border-[var(--color-border)] bg-[var(--color-surface-soft)]"
+                  style={`border-radius: var(${name})`}
+                />
+                <Text size="sm" class="font-mono">
+                  {name}
+                </Text>
+                <Text size="sm" muted class="font-mono">
+                  {value}
+                </Text>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <Eyebrow>Headings (Playfair Display)</Eyebrow>
+        <Heading level={2} size="7xl">Heading 7xl</Heading>
+        <Heading level={2} size="6xl">Heading 6xl</Heading>
+        <Heading level={2} size="5xl">Heading 5xl</Heading>
+        <Heading level={2} size="4xl">Heading 4xl</Heading>
+        <Heading level={3} size="3xl">Heading 3xl</Heading>
+        <Heading level={3} size="2xl">Heading 2xl</Heading>
+        <Heading level={4} size="xl">Heading xl</Heading>
+        <Heading level={3} size="3xl">
+          With <em>italic</em> emphasis
+        </Heading>
+      </section>
+
+      <section class="space-y-2">
+        <Eyebrow>Body (Inter)</Eyebrow>
+        <Text size="xl">XL body for hero sub-headings.</Text>
+        <Text size="lg">Large body for section intros.</Text>
+        <Text>Default body.</Text>
+        <Text size="sm" muted>Small muted body for meta text.</Text>
+      </section>
+
+      <section class="space-y-3">
+        <Eyebrow>Buttons</Eyebrow>
+        <div class="flex flex-wrap items-center gap-3">
+          <Button variant="accent" size="lg">Accent L</Button>
+          <Button variant="accent">Accent M</Button>
+          <Button variant="accent" size="sm">Accent S</Button>
+          <Button variant="primary">Primary (dark)</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="pill">Ready to Build?</Button>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <Eyebrow>Links</Eyebrow>
+        <Text>
+          Inline <Link href="/">internal link</Link> and
+          <Link href="https://example.com">external link</Link> within a sentence.
+        </Text>
+      </section>
+    </Container>
+  </body>
+</html>

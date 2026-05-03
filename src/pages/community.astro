@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import CommunityHero from '../components/sections/CommunityHero.astro';
+import ReadyToBuildCTA from '../components/sections/ReadyToBuildCTA.astro';
+---
+
+<BaseLayout
+  title="Community | imageleft"
+  description="A focused circle for founders building real products. Conversations, invites, and signal. No noise."
+  ogImage="/og/community.png"
+>
+  <SiteHeader slot="header" />
+
+  <CommunityHero />
+  <ReadyToBuildCTA />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>
