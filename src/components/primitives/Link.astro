@@ -1,0 +1,24 @@
+---
+import { isExternalHref } from '../../lib/url';
+
+interface Props {
+  href: string;
+  /** Override automatic external-detection. Pass `false` to force same-tab. */
+  external?: boolean;
+  class?: string;
+}
+const { href, external, class: className = '' }: Props = Astro.props;
+const isExternal = external ?? isExternalHref(href);
+---
+
+<a
+  href={href}
+  class:list={[
+    'text-accent underline decoration-1 underline-offset-2',
+    'hover:decoration-2 focus-visible:outline-2 focus-visible:outline-offset-2',
+    className,
+  ]}
+  {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  <slot />
+</a>

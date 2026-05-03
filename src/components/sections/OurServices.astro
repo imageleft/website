@@ -1,0 +1,91 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+import IconSquare from '../primitives/IconSquare.astro';
+import StarBlob from '../primitives/StarBlob.astro';
+import Icon from '../primitives/Icon.astro';
+
+const services = [
+  {
+    title: 'Product Design',
+    body: 'We turn rough ideas into clear product systems.. with wireframes, UX flows, and prototypes ready to build.',
+  },
+  {
+    title: 'Software Development',
+    body: 'We assemble the building blocks of your product, turning designs into scalable, fully functioning systems.',
+  },
+  {
+    title: 'AI & System Automation',
+    body: 'We integrate intelligent automation that keeps your product running smoothly behind the scenes.',
+  },
+];
+---
+
+<section id="services" class="py-24">
+  <Container size="lg">
+    <div
+      class="bg-ink-strong text-surface relative overflow-hidden rounded-[var(--radius-lg)] px-10 py-16 md:px-16 md:py-20"
+    >
+      <StarBlob
+        color="var(--color-decoration-pink)"
+        size="120px"
+        class="pointer-events-none absolute -top-6 -right-6 rotate-12 opacity-90"
+      />
+      <StarBlob
+        color="var(--color-decoration-lavender)"
+        size="120px"
+        class="pointer-events-none absolute top-8 -right-2 -rotate-6 opacity-70"
+      />
+      <StarBlob
+        color="var(--color-decoration-pink)"
+        size="120px"
+        class="pointer-events-none absolute -right-4 -bottom-8 rotate-6 opacity-90"
+      />
+      <StarBlob
+        color="var(--color-decoration-lavender)"
+        size="120px"
+        class="pointer-events-none absolute right-12 -bottom-6 -rotate-12 opacity-60"
+      />
+
+      <PillBadge variant="dark-outline">Our Services</PillBadge>
+
+      <Heading level={2} size="5xl" class="mt-6 max-w-2xl">
+        Build Software That Actually Works.
+      </Heading>
+
+      <Text class="mt-4 max-w-md text-white/70">
+        We combine product thinking, design, and engineering to build systems that work, not just
+        features
+      </Text>
+
+      <div class="mt-8">
+        <Button href="/contact" variant="accent" size="lg">
+          <Icon name="google-meet" size={20} brandUseCurrent ariaLabel="Google Meet" />
+          Book a Free Call
+        </Button>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 gap-10 border-t border-white/15 pt-10 md:grid-cols-3">
+        {
+          services.map((service, i) => (
+            <div
+              class:list={[
+                'space-y-3',
+                i > 0 && 'md:border-l md:border-dashed md:border-white/15 md:pl-8',
+              ]}
+            >
+              <IconSquare variant="dark" class="border border-white/15">
+                <Icon name="command" size={20} class="text-surface" />
+              </IconSquare>
+              <h3 class="text-surface font-sans text-xl font-semibold">{service.title}</h3>
+              <p class="text-sm text-white/65">{service.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

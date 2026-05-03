@@ -1,0 +1,27 @@
+---
+interface Props {
+  /** Container variant — dark (ink-strong + white glyph) or light (surface + ink glyph) */
+  variant?: 'dark' | 'light';
+  /** Tailwind size class for w/h — defaults to size-10 (40px). Pass e.g. 'size-8' for smaller. */
+  size?: string;
+  class?: string;
+}
+const { variant = 'dark', size = 'size-10', class: className = '' }: Props = Astro.props;
+
+const variants = {
+  dark: 'bg-ink-strong text-surface',
+  light: 'bg-surface-soft text-ink border border-border',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex items-center justify-center rounded-md',
+    size,
+    variants[variant],
+    className,
+  ]}
+  aria-hidden="true"
+>
+  <slot />
+</span>

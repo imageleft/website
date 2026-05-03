@@ -16,7 +16,8 @@
     "format:fix": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lhci": "lhci autorun"
+    "lhci": "lhci autorun",
+    "check:links": "linkinator ./dist --recurse --skip 'fonts.googleapis|fonts.gstatic|imageleft.com'"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
@@ -38,6 +39,7 @@
     "@typescript-eslint/parser": "^8.59.1",
     "eslint": "^10.3.0",
     "eslint-plugin-astro": "^1.7.0",
+    "linkinator": "^7.6.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-organize-imports": "^4.3.0",

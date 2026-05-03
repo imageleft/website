@@ -1,0 +1,45 @@
+---
+import Container from '../primitives/Container.astro';
+import MobileNav from '../islands/MobileNav.tsx';
+
+const nav = [
+  { href: '/#about', label: 'About' },
+  { href: '/#services', label: 'Services' },
+  { href: '/community', label: 'Community' },
+  { href: '/careers', label: 'Careers' },
+  { href: '/pricing', label: 'Pricing' },
+];
+---
+
+<header
+  class="sticky top-0 z-30 border-b border-[var(--color-border)] backdrop-blur-lg"
+  style="background-color: rgba(252, 252, 252, 0.45)"
+>
+  <Container size="xl" as="nav" class="flex items-center justify-between py-3">
+    <a href="/" aria-label="imageleft home" class="inline-flex items-center">
+      <img
+        src="/sections/brand/logo.svg"
+        alt="imageleft"
+        width="117"
+        height="40"
+        class="h-9 w-auto"
+      />
+    </a>
+
+    <ul class="hidden items-center gap-8 md:flex">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} class="text-ink hover:text-accent text-sm">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="md:hidden">
+      <MobileNav client:load nav={nav} />
+    </div>
+  </Container>
+</header>

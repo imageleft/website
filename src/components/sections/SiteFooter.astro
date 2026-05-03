@@ -1,0 +1,134 @@
+---
+import Container from '../primitives/Container.astro';
+import Icon from '../primitives/Icon.astro';
+import type { IconName } from '../primitives/Icon.astro';
+import { isExternalHref } from '../../lib/url';
+
+const cols = [
+  {
+    title: 'Company',
+    links: [
+      { href: '/#services', label: 'Service' },
+      { href: '/#about', label: 'About' },
+      { href: '/careers', label: 'Careers' },
+      { href: '/blog', label: 'Blog' },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { href: '/contact', label: 'Customer support' },
+      { href: '/privacy', label: 'Privacy policy' },
+    ],
+  },
+];
+
+const contacts = [
+  { label: '+667 990 765555', href: 'tel:+667990765555' },
+  { label: 'info@imageleft.com', href: 'mailto:info@imageleft.com' },
+  { label: '104 Reddington Street Rwanda', href: null },
+];
+
+const socials: { label: string; href: string; icon: IconName }[] = [
+  { label: 'Instagram', href: 'https://instagram.com/imageleft', icon: 'instagram' },
+  { label: 'Facebook', href: 'https://facebook.com/imageleft', icon: 'facebook' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/company/imageleft', icon: 'linkedin' },
+  { label: 'WhatsApp', href: 'https://wa.me/667990765555', icon: 'whatsapp' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-surface border-t border-[var(--color-border)]">
+  <Container size="xl" class="py-16">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-4">
+      <a href="/" aria-label="imageleft home" class="inline-flex items-center">
+        <img
+          src="/sections/brand/logo.svg"
+          alt="imageleft"
+          width="117"
+          height="40"
+          class="h-10 w-auto"
+        />
+      </a>
+
+      {
+        cols.map((col) => (
+          <div>
+            <h3 class="text-ink text-sm font-semibold">{col.title}</h3>
+            <ul class="mt-3 space-y-2">
+              {col.links.map((l) => {
+                const ext = isExternalHref(l.href);
+                return (
+                  <li>
+                    <a
+                      href={l.href}
+                      class="text-muted hover:text-ink text-sm"
+                      {...(ext && { target: '_blank', rel: 'noopener noreferrer' })}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+
+      <div>
+        <h3 class="text-ink text-sm font-semibold">Contacts</h3>
+        <ul class="mt-3 space-y-2">
+          {
+            contacts.map((c) => {
+              if (!c.href)
+                return (
+                  <li>
+                    <span class="text-muted text-sm">{c.label}</span>
+                  </li>
+                );
+              const ext = isExternalHref(c.href);
+              return (
+                <li>
+                  <a
+                    href={c.href}
+                    class="text-muted hover:text-ink text-sm"
+                    {...(ext && { target: '_blank', rel: 'noopener noreferrer' })}
+                  >
+                    {c.label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+
+  <div class="border-t border-[var(--color-border)]">
+    <Container
+      size="xl"
+      class="flex flex-col items-start justify-between gap-4 py-6 md:flex-row md:items-center"
+    >
+      <p class="text-muted text-xs">© {year} Imageleft. All rights reserved.</p>
+      <ul class="flex items-center gap-3">
+        {
+          socials.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                class="border-border bg-surface hover:bg-surface-soft text-ink inline-flex h-9 w-9 items-center justify-center rounded-full border transition-colors"
+              >
+                <Icon name={s.icon} size={16} ariaLabel={s.label} brandUseCurrent />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Container>
+  </div>
+</footer>

@@ -1,0 +1,43 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+---
+
+<section class="dotted-bg relative overflow-hidden py-32">
+  <Container size="lg" class="relative text-center">
+    <PillBadge>Community</PillBadge>
+
+    <Heading level={1} size="6xl" class="mx-auto mt-6 max-w-3xl">
+      Build alongside founders who get it.
+    </Heading>
+
+    <Text muted size="lg" class="mx-auto mt-6 max-w-xl">
+      A focused circle for builders shipping real products. No noise, no spam. Just sharp
+      conversations and the occasional invite.
+    </Text>
+
+    <form
+      class="border-border-strong bg-surface focus-within:border-accent mx-auto mt-12 flex max-w-xl items-center gap-2 rounded-full border p-2 transition-colors"
+      action="mailto:community@imageleft.com"
+      method="post"
+      enctype="text/plain"
+    >
+      <label class="flex-1">
+        <span class="sr-only">Your email</span>
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="you@example.com"
+          class="w-full bg-transparent px-4 py-2 text-sm focus:outline-none"
+        />
+      </label>
+      <Button type="submit" variant="accent" class="!rounded-full">Join the community</Button>
+    </form>
+
+    <Text size="sm" muted class="mt-4">No spam. Unsubscribe with one click.</Text>
+  </Container>
+</section>

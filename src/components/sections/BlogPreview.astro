@@ -1,0 +1,39 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+import PostCard from './PostCard.astro';
+import { getBlogPosts } from '../../content';
+
+const posts = (await getBlogPosts()).slice(0, 3);
+---
+
+<section class="py-24">
+  <Container size="lg">
+    <div class="space-y-3 text-center">
+      <PillBadge>Blog</PillBadge>
+      <Heading level={2} size="5xl">From The Blog</Heading>
+      <Text muted class="mx-auto max-w-md">
+        Thoughts, lessons, and perspectives from building real products.
+      </Text>
+    </div>
+
+    {
+      posts.length > 0 && (
+        <ul class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <li>
+              <PostCard post={post} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="mt-10 flex justify-center">
+      <Button href="/blog" variant="outline">All Blog Posts</Button>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,27 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
+---
+
+<section class="dotted-bg relative py-32">
+  <Container size="lg" class="relative text-center">
+    <Heading level={1} size="6xl" class="mx-auto max-w-3xl">
+      What It Cost to Build a Product
+    </Heading>
+
+    <Text muted class="mx-auto mt-6 max-w-xl">
+      Every project is different, but here's a clear view of what it typically costs to design,
+      build, and launch with imageleft.
+    </Text>
+
+    <div class="mt-10 flex justify-center">
+      <Button href="/contact" variant="accent" size="lg">
+        <Icon name="google-meet" size={20} brandUseCurrent ariaLabel="Google Meet" />
+        Schedule a Call
+      </Button>
+    </div>
+  </Container>
+</section>

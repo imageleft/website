@@ -1,0 +1,39 @@
+[
+  {
+    "id": "fintech-startup-bibi",
+    "customer": "Bibi Gabriel — Fintech Startup",
+    "logo": "/sections/stories/bibi.svg",
+    "industry": "Fintech",
+    "summary": "We translated a complex payments idea into a real platform. From product brief to launch in 14 weeks.",
+    "metrics": [
+      { "label": "Time to launch", "value": "14 weeks" },
+      { "label": "Active users at MVP", "value": "1,200" },
+      { "label": "Backend uptime", "value": "99.97%" }
+    ],
+    "body": "Bibi came to us with an idea and a deck. We started with a 2-week discovery, then designed the full product system before writing code. The platform shipped on time, integrated Paystack and M-Pesa from day one, and crossed 1,200 active users within the first month."
+  },
+  {
+    "id": "healthtech-adaeze",
+    "customer": "Adaeze Okafor — HealthTech",
+    "logo": "/sections/stories/adaeze.svg",
+    "industry": "HealthTech",
+    "summary": "A clinical-records platform built with care. Compliance, audit trails, and a UI that nurses actually want to use.",
+    "metrics": [
+      { "label": "Compliance audit", "value": "Passed first try" },
+      { "label": "Avg session time", "value": "8 min" }
+    ],
+    "body": "We spent the first phase mapping clinical workflows with three nurses on staff. The result is a records platform that sits in the background and surfaces only what matters. Compliance audits passed on the first try."
+  },
+  {
+    "id": "b2b-saas-tom",
+    "customer": "Tom Reyes — B2B SaaS",
+    "logo": "/sections/stories/tom.svg",
+    "industry": "B2B SaaS",
+    "summary": "A growth roadmap that saved months and a lot of money. We challenged scope and got to launch fast.",
+    "metrics": [
+      { "label": "Initial scope cut", "value": "38%" },
+      { "label": "Time saved", "value": "11 weeks" }
+    ],
+    "body": "Tom expected designers. He got product partners. We pushed back on a third of the original scope, shipped the smaller version first, and used the saved time to find product-market fit with paying customers."
+  }
+]

@@ -1,0 +1,46 @@
+---
+import PillBadge from '../primitives/PillBadge.astro';
+import Text from '../primitives/Text.astro';
+import type { BlogPost } from '../../content/schemas';
+
+interface Props {
+  post: BlogPost;
+}
+const { post }: Props = Astro.props;
+
+const formattedDate = post.publishedAt.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article
+  class="border-border bg-surface flex flex-col overflow-hidden rounded-[var(--radius-md)] border"
+>
+  <a href={`/blog/${post.slug}`} class="block">
+    <img src={post.coverImage} alt="" loading="lazy" class="aspect-[16/10] w-full object-cover" />
+  </a>
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <div class="flex items-center justify-between">
+      {
+        post.tags.length > 0 && (
+          <PillBadge variant="outline" class="!px-3 !py-0.5 !text-[10px]">
+            {post.tags[0]}
+          </PillBadge>
+        )
+      }
+      <Text size="sm" muted class="!text-xs">{formattedDate}</Text>
+    </div>
+    <a href={`/blog/${post.slug}`} class="hover:text-accent text-ink text-base font-semibold">
+      {post.title}
+    </a>
+    <Text muted size="sm" class="line-clamp-2">{post.excerpt}</Text>
+    <div class="border-border mt-auto flex items-center justify-between border-t pt-3">
+      <p class="text-xs">
+        <span class="text-muted">By </span>
+        <span class="text-ink font-medium">{post.author.name}</span>
+      </p>
+    </div>
+  </div>
+</article>

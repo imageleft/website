@@ -1,0 +1,90 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+
+interface Row {
+  title: string;
+  body: string;
+  image: string;
+  alt: string;
+}
+
+const rows: Row[] = [
+  {
+    title: 'Mobile products designed for speed, usability, and real-world use.',
+    body: 'Native-feeling mobile apps that ship fast and stay responsive at scale.',
+    image: '/sections/systems/mobile.png',
+    alt: 'Mobile wallet app screen mockup',
+  },
+  {
+    title: 'Web platforms with admin and analytics built in.',
+    body: 'Dashboards, settings, and reporting layers ready for day-one operations.',
+    image: '/sections/systems/dashboard.png',
+    alt: 'SaaS file management dashboard mockup',
+  },
+  {
+    title: 'Auth, payments, and integrations wired end-to-end.',
+    body: 'Stripe, Paystack, OAuth, M-Pesa, GitHub. All connected without surprises.',
+    image: '/sections/systems/integrations.png',
+    alt: 'Third-party integration logos cluster',
+  },
+  {
+    title: 'Notifications and messaging that reach the right people.',
+    body: 'Email, in-app, and push notifications with templated, observable delivery.',
+    image: '/sections/systems/notifications.png',
+    alt: 'Notification cards stacked',
+  },
+  {
+    title: 'Marketplaces and two-sided systems wired with care.',
+    body: 'Buyer and seller flows, escrow, dispute paths. All modeled before code.',
+    image: '/sections/systems/marketplace.png',
+    alt: 'Buyer-to-seller flow diagram',
+  },
+];
+---
+
+<section class="dotted-bg relative py-24">
+  <Container size="xl" class="relative">
+    <div class="space-y-3">
+      <PillBadge>Systems we build</PillBadge>
+      <Heading level={2} size="5xl" class="max-w-3xl">
+        We Build Every Type Of Digital Product To Help Your Business Grow
+      </Heading>
+      <Text muted class="max-w-xl">
+        We follow a repeatable, modular tested system for building products. Each phase has clear
+        outputs so you always know where things stand.
+      </Text>
+    </div>
+
+    <div class="mt-16 space-y-12">
+      {
+        rows.map((row, i) => (
+          <article
+            class:list={[
+              'grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12',
+              i % 2 === 1 && 'md:[&>:first-child]:order-2',
+            ]}
+          >
+            <div class="space-y-3">
+              <Text size="lg" class="font-medium">
+                {row.title}
+              </Text>
+              <Text muted size="sm" class="max-w-md">
+                {row.body}
+              </Text>
+            </div>
+
+            <img
+              src={row.image}
+              alt={row.alt}
+              loading="lazy"
+              class="mx-auto h-auto w-full max-w-xs rounded-[var(--radius-md)] object-contain"
+            />
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</section>

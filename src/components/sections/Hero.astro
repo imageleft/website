@@ -1,0 +1,42 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
+import HeroStripe from './HeroStripe.astro';
+---
+
+<section class="dotted-bg relative">
+  <HeroStripe side="left" tone="pink" avatar="/sections/hero/avatar-left.png" />
+  <HeroStripe side="right" tone="lavender" avatar="/sections/hero/avatar-right.png" />
+
+  <Container size="xl" class="relative pt-32 pb-24 text-center">
+    <Heading level={1} size="7xl" class="mx-auto max-w-4xl">
+      We Build Scalable Software Systems for <em>Ambitious</em> Founders.
+    </Heading>
+
+    <Text muted class="mx-auto mt-6 max-w-xl">
+      We combine product thinking, design, and engineering to build systems that work, not just
+      features.
+    </Text>
+
+    <div class="mt-10 flex justify-center">
+      <Button href="/contact" variant="accent" size="lg">
+        <Icon name="google-meet" size={20} brandUseCurrent ariaLabel="Google Meet" />
+        Book a Free Call
+      </Button>
+    </div>
+
+    <div class="mt-20 flex justify-center px-4">
+      <img
+        src="/sections/hero/partners.png"
+        alt="Trusted by Stripe, Paystack, M-PESA, GitHub and partners"
+        loading="lazy"
+        width="1300"
+        height="130"
+        class="h-12 w-auto opacity-90 md:h-14"
+      />
+    </div>
+  </Container>
+</section>

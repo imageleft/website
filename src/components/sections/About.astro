@@ -1,0 +1,21 @@
+---
+import Container from '../primitives/Container.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+import StarBlob from '../primitives/StarBlob.astro';
+---
+
+<section id="about" class="py-24">
+  <Container size="lg">
+    <PillBadge>About</PillBadge>
+
+    <p
+      class="font-display text-muted mt-8 max-w-4xl text-3xl leading-tight md:text-4xl lg:text-5xl"
+    >
+      <StarBlob color="var(--color-decoration-pink)" size="0.7em" class="mr-2" />
+      We work with founders. We cover every layer of <span class="text-ink font-medium"
+        >building a modern digital product,</span
+      > so you don't need to patch together multiple vendors.
+      <StarBlob color="var(--color-decoration-lavender)" size="0.7em" class="ml-2" />
+    </p>
+  </Container>
+</section>

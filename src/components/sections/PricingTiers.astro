@@ -1,0 +1,139 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+import Icon from '../primitives/Icon.astro';
+
+interface Tier {
+  label: string;
+  title: string;
+  price: string;
+  priceCaption: string;
+  features: string[];
+  ctaLabel: string;
+  ctaHref: string;
+  featured?: boolean;
+}
+
+const tiers: Tier[] = [
+  {
+    label: 'Starter',
+    title: 'Product Design',
+    price: '$500–$1000',
+    priceCaption: 'We turn your idea into a real product system',
+    features: [
+      'UX research',
+      'Wireframes',
+      'User flows',
+      'High-fidelity designs',
+      'Clickable prototypes',
+    ],
+    ctaLabel: 'Get Started',
+    ctaHref: '/contact',
+  },
+  {
+    label: 'Popular',
+    title: 'Full Product Development',
+    price: 'From $10,000',
+    priceCaption: 'End-to-end product build',
+    features: [
+      'Mobile app or web platform',
+      'Mobile app and web platform',
+      'Backend infrastructure',
+      'API integrations',
+      'Deployment support',
+    ],
+    ctaLabel: 'Get Started',
+    ctaHref: '/contact',
+    featured: true,
+  },
+  {
+    label: 'Enterprise',
+    title: 'AI & System Automation',
+    price: 'Custom pricing',
+    priceCaption: 'We design and integrate intelligent systems',
+    features: [
+      'Automate workflows',
+      'Connect tools and APIs',
+      'Custom AI integrations',
+      'Improve system efficiency',
+      'Continuous iterations',
+    ],
+    ctaLabel: 'Get Started',
+    ctaHref: '/contact',
+  },
+];
+---
+
+<section class="py-24">
+  <Container size="lg">
+    <div class="space-y-3 text-center">
+      <PillBadge>Pricing</PillBadge>
+      <Heading level={2} size="5xl">Simple, transparent pricing</Heading>
+      <Text muted class="mx-auto max-w-xl">
+        We don't believe in one-size-fits-all packages. Every project is different, so pricing is
+        based on scope, complexity, and what it takes to build it properly.
+      </Text>
+    </div>
+
+    <ul class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        tiers.map((tier) => {
+          const featured = tier.featured;
+          return (
+            <li
+              class:list={[
+                'flex flex-col gap-6 rounded-[var(--radius-md)] border p-8',
+                featured
+                  ? 'bg-ink-strong text-surface border-transparent'
+                  : 'bg-surface border-border text-ink',
+              ]}
+            >
+              <div class="flex w-full justify-center">
+                <PillBadge variant={featured ? 'dark-outline' : 'outline'}>{tier.label}</PillBadge>
+              </div>
+
+              <div class="space-y-2 text-center">
+                <h3 class="font-sans text-lg font-semibold">{tier.title}</h3>
+                <p class="font-display text-3xl tracking-tight">{tier.price}</p>
+                <p class:list={['text-sm', featured ? 'text-white/60' : 'text-muted']}>
+                  {tier.priceCaption}
+                </p>
+              </div>
+
+              <ul class="space-y-2.5">
+                {tier.features.map((f) => (
+                  <li
+                    class:list={[
+                      'flex items-start gap-2 text-sm',
+                      featured ? 'text-white/85' : 'text-ink',
+                    ]}
+                  >
+                    <Icon
+                      name={featured ? 'plus' : 'arrow-return'}
+                      size={16}
+                      class:list={['mt-0.5 shrink-0', featured ? 'text-white/60' : 'text-muted']}
+                    />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-auto pt-4">
+                <Button
+                  href={tier.ctaHref}
+                  variant={featured ? 'accent' : 'outline'}
+                  class="w-full"
+                >
+                  {tier.ctaLabel}
+                </Button>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Container>
+</section>

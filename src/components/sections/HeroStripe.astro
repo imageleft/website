@@ -1,0 +1,37 @@
+---
+/**
+ * Decorative pillar that flanks the hero headline.
+ *
+ * Three layers, concentric:
+ *   1. STRIPE COLUMN — vertical rectangle with `rounded-b-full` (the rounded bottom IS "the circle")
+ *   2. CIRCLE PORTION — the rounded bottom of the stripe (same color, no separate element)
+ *   3. AVATAR — a smaller circle (~70% of the stripe width) centered inside, near the bottom.
+ *      Stripe color visible all around the avatar = padding.
+ *
+ * Centering uses `left-1/2 -translate-x-1/2` (transform-based) — bulletproof across browsers,
+ * unaffected by absolute-positioning auto-margin edge cases. The avatar nests INSIDE the
+ * stripe-bg so its position is unambiguous.
+ */
+interface Props {
+  side: 'left' | 'right';
+  avatar: string;
+  tone: 'pink' | 'lavender';
+}
+const { side, avatar, tone }: Props = Astro.props;
+
+const toneBg = tone === 'pink' ? 'bg-decoration-pink' : 'bg-decoration-lavender';
+const sideClass = side === 'left' ? 'left-1/4' : 'right-1/4';
+---
+
+<div
+  class:list={['pointer-events-none absolute -top-16 hidden h-96 w-20 md:block', sideClass]}
+  aria-hidden="true"
+>
+  <div class:list={[toneBg, 'relative h-full w-full rounded-b-full']}>
+    <img
+      src={avatar}
+      alt=""
+      class="absolute bottom-4 left-1/2 h-14 w-14 -translate-x-1/2 rounded-full object-cover"
+    />
+  </div>
+</div>

@@ -1,0 +1,50 @@
+@import 'tailwindcss' source(none);
+@source '../**/*.{astro,html,ts,tsx,js,jsx,md,mdx}';
+
+@theme {
+  /* Surfaces */
+  --color-surface: #fcfcfc; /* primary page background */
+  --color-surface-soft: #f8f8f7; /* CTA pill / subtle surface */
+
+  /* Ink */
+  --color-ink: #000000; /* primary text */
+  --color-ink-strong: #171616; /* dark CTA block / strong contrast / featured tier */
+  --color-muted: #565656; /* secondary text */
+
+  /* Borders */
+  --color-border: #e9e7ea; /* default chrome border */
+  --color-border-strong: #dadada; /* CTA pill stroke / emphasized */
+
+  /* Accent — primary brand purple (sampled from Figma renders) */
+  --color-accent: #8862dc;
+  --color-accent-strong: #6d4ac0; /* hover / pressed — ~12% darker */
+
+  /* Decoration — sampled from Figma hero columns and inline ornaments */
+  --color-decoration-pink: #f6bdec;
+  --color-decoration-lavender: #b7c9fb;
+
+  /* Type — Inter (sans) + Playfair Display (serif) loaded via Google Fonts in BaseLayout (M2.2) */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, ui-serif, serif;
+
+  /* Type scale — extended for hero (text-7xl) per Figma */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+
+  /* Radii */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.75rem; /* 12px — input pills, small cards */
+  --radius-lg: 1.5rem; /* 24px — featured cards / dark blocks */
+  --radius-full: 9999px; /* pill buttons */
+
+  /* Spacing scale uses Tailwind defaults (4px increments) */
+}

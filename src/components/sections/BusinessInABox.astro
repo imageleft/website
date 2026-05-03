@@ -1,0 +1,112 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+import StarBlob from '../primitives/StarBlob.astro';
+import Icon from '../primitives/Icon.astro';
+
+interface Tag {
+  label: string;
+  /** Inline style positioning to avoid Tailwind's purge of dynamic class names. */
+  style: string;
+}
+
+const tags: Tag[] = [
+  { label: 'Web platform', style: 'top:18%;left:6%;transform:rotate(-7deg)' },
+  { label: 'Mobile applications', style: 'top:46%;left:10%;transform:rotate(5deg)' },
+  { label: 'Launch & support', style: 'top:30%;left:38%;transform:rotate(-12deg)' },
+  { label: 'Admin dashboard', style: 'top:14%;right:6%;transform:rotate(-9deg)' },
+  { label: 'Payment integration', style: 'top:42%;left:46%;transform:rotate(3deg)' },
+  { label: 'Scalable backend', style: 'top:62%;left:34%;transform:rotate(-4deg)' },
+];
+
+interface Star {
+  color: string;
+  size: string;
+  style: string;
+}
+
+const stars: Star[] = [
+  {
+    color: 'var(--color-decoration-pink)',
+    size: '56px',
+    style: 'top:8%;left:24%;transform:rotate(15deg)',
+  },
+  {
+    color: 'var(--color-decoration-lavender)',
+    size: '40px',
+    style: 'top:20%;left:62%;transform:rotate(-22deg)',
+  },
+  { color: '#FCD34D', size: '36px', style: 'top:34%;left:24%;transform:rotate(8deg)' },
+  {
+    color: 'var(--color-decoration-pink)',
+    size: '48px',
+    style: 'top:50%;right:10%;transform:rotate(-10deg)',
+  },
+  { color: '#A7F3D0', size: '32px', style: 'top:58%;left:8%;transform:rotate(28deg)' },
+  {
+    color: 'var(--color-decoration-lavender)',
+    size: '52px',
+    style: 'bottom:14%;right:24%;transform:rotate(-18deg)',
+  },
+  { color: '#FDA4AF', size: '28px', style: 'bottom:6%;left:46%;transform:rotate(35deg)' },
+  {
+    color: 'var(--color-decoration-pink)',
+    size: '36px',
+    style: 'top:74%;left:18%;transform:rotate(-30deg)',
+  },
+  { color: '#FFE08A', size: '24px', style: 'top:12%;left:50%;transform:rotate(45deg)' },
+  {
+    color: 'var(--color-decoration-lavender)',
+    size: '44px',
+    style: 'bottom:22%;right:6%;transform:rotate(12deg)',
+  },
+];
+---
+
+<section class="py-24">
+  <Container size="lg">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div class="space-y-6">
+        <PillBadge>Business in a box</PillBadge>
+
+        <Heading level={2} size="5xl">Everything You Need To Launch, In One System.</Heading>
+
+        <Text muted size="lg" class="max-w-md">
+          We don't build in parts. We design and deliver complete product systems, ready to go live.
+        </Text>
+
+        <div class="pt-2">
+          <Button href="/contact" variant="accent" size="lg">
+            <Icon name="google-meet" size={20} brandUseCurrent ariaLabel="Google Meet" />
+            Book a Free Call
+          </Button>
+        </div>
+      </div>
+
+      <div
+        class="dotted-bg bg-surface-soft border-border relative h-[460px] overflow-hidden rounded-[var(--radius-lg)] border"
+      >
+        {
+          stars.map((star) => (
+            <span class="pointer-events-none absolute" style={star.style}>
+              <StarBlob color={star.color} size={star.size} />
+            </span>
+          ))
+        }
+        {
+          tags.map((tag) => (
+            <span
+              class="bg-ink-strong text-surface absolute rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap shadow-md"
+              style={tag.style}
+            >
+              {tag.label}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

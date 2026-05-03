@@ -1,0 +1,133 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+
+interface Props {
+  /** Email recipient. Confirm before launch. */
+  to?: string;
+}
+const { to = 'hello@imageleft.com' }: Props = Astro.props;
+
+const inputClass =
+  'mt-1.5 w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-surface px-4 py-2.5 text-base text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors';
+---
+
+<section class="dotted-bg relative py-24">
+  <Container size="md" class="relative">
+    <div class="space-y-3 text-center">
+      <PillBadge>Contact</PillBadge>
+      <Heading level={1} size="6xl">Tell us what you're building.</Heading>
+      <Text muted class="mx-auto max-w-xl">
+        A quick brief is enough to get us thinking. We respond within 24 hours, no automated
+        sequences.
+      </Text>
+    </div>
+
+    {/*
+      Form notes:
+        - With JS, a small inline script (below) intercepts submit, builds a nicely-formatted
+          mailto URL with `subject` and `body` query params, and opens the user's mail client.
+        - Without JS, the form falls back to the native mailto+text/plain submission.
+          Less pretty, but it still works.
+        - `data-mailto-form` is the hook the script uses. `data-to` carries the recipient.
+    */}
+    <form
+      data-mailto-form
+      data-to={to}
+      action={`mailto:${to}`}
+      method="post"
+      enctype="text/plain"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mx-auto mt-12 grid max-w-xl grid-cols-1 gap-5"
+    >
+      <label class="block">
+        <span class="text-ink block text-sm font-medium">Name</span>
+        <input name="name" type="text" required placeholder="Your full name" class={inputClass} />
+      </label>
+
+      <label class="block">
+        <span class="text-ink block text-sm font-medium">Email</span>
+        <input
+          name="email"
+          type="email"
+          required
+          placeholder="you@example.com"
+          class={inputClass}
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-ink block text-sm font-medium">Subject</span>
+        <input
+          name="subject"
+          type="text"
+          required
+          placeholder="What's this about?"
+          class={inputClass}
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-ink block text-sm font-medium">Message</span>
+        <textarea
+          name="message"
+          rows="6"
+          required
+          placeholder="Briefly describe what you're working on, where you are now, and what you'd like help with."
+          class={inputClass}></textarea>
+      </label>
+
+      <Button type="submit" variant="accent" size="lg" class="w-full">Send message</Button>
+
+      <Text size="sm" muted class="text-center">
+        Submitting opens your mail client with a draft pre-filled.
+      </Text>
+    </form>
+  </Container>
+</section>
+
+<script>
+  // Progressive enhancement: replace the native text/plain submission with a properly-
+  // formatted mailto URL whose `subject` and `body` are URL-encoded.
+  type FormFields = { name: string; email: string; subject: string; message: string };
+
+  document.querySelectorAll<HTMLFormElement>('form[data-mailto-form]').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const data = new FormData(form);
+      const fields: FormFields = {
+        name: String(data.get('name') ?? '').trim(),
+        email: String(data.get('email') ?? '').trim(),
+        subject: String(data.get('subject') ?? '').trim(),
+        message: String(data.get('message') ?? '').trim(),
+      };
+
+      const to = form.dataset.to ?? 'hello@imageleft.com';
+      const subject = fields.subject || 'Hello from imageleft.com';
+      const body = [
+        'Hi imageleft team,',
+        '',
+        fields.message,
+        '',
+        '—',
+        `From: ${fields.name}`,
+        `Reply-to: ${fields.email}`,
+        '',
+        'Sent from the imageleft.com contact form.',
+      ].join('\n');
+
+      const mailtoUrl = `mailto:${to}?subject=${encodeURIComponent(
+        subject,
+      )}&body=${encodeURIComponent(body)}`;
+
+      // Use location.href so the mail client opens reliably across browsers; the
+      // opened tab (target="_blank" on the form) is a no-op since we cancelled submit.
+      window.location.href = mailtoUrl;
+    });
+  });
+</script>

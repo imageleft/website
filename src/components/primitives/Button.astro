@@ -1,0 +1,56 @@
+---
+import { isExternalHref } from '../../lib/url';
+
+interface Props {
+  href?: string;
+  variant?: 'accent' | 'primary' | 'secondary' | 'ghost' | 'pill' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  /** Override automatic external-detection. Only meaningful when `href` is set. */
+  external?: boolean;
+  class?: string;
+}
+const {
+  href,
+  variant = 'accent',
+  size = 'md',
+  type,
+  external,
+  class: className = '',
+}: Props = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2';
+
+const variants = {
+  accent: 'rounded-md bg-accent text-surface hover:bg-accent-strong',
+  primary: 'rounded-md bg-ink-strong text-surface hover:opacity-90',
+  secondary: 'rounded-md bg-surface-soft text-ink hover:bg-border',
+  ghost: 'rounded-md text-ink hover:bg-surface-soft',
+  outline: 'rounded-md border border-border-strong bg-surface text-ink hover:bg-surface-soft',
+  pill: 'rounded-full border border-border-strong bg-surface-soft text-ink hover:bg-border',
+};
+
+const sizes = {
+  sm: 'px-3 py-1.5 text-sm',
+  md: 'px-4 py-2 text-base',
+  lg: 'px-6 py-3 text-lg',
+};
+
+const cls = [base, variants[variant], sizes[size], className];
+
+const isExternal = href ? (external ?? isExternalHref(href)) : false;
+const externalAttrs = isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+{
+  href ? (
+    <a href={href} class:list={cls} {...externalAttrs}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type ?? 'button'} class:list={cls}>
+      <slot />
+    </button>
+  )
+}

@@ -1,0 +1,36 @@
+---
+import PillBadge from '../primitives/PillBadge.astro';
+import Text from '../primitives/Text.astro';
+import Icon from '../primitives/Icon.astro';
+import type { Job } from '../../content/schemas';
+
+interface Props {
+  job: Job;
+}
+const { job }: Props = Astro.props;
+---
+
+<a
+  href={`/careers/${job.slug}`}
+  class="border-border bg-surface hover:border-border-strong group block rounded-[var(--radius-md)] border p-6 transition-colors"
+>
+  <div class="flex items-start justify-between gap-4">
+    <div class="space-y-2">
+      <div class="flex flex-wrap items-center gap-2">
+        <PillBadge variant="outline" class="!px-3 !py-0.5 !text-[10px]">{job.team}</PillBadge>
+        <Text size="sm" muted class="!text-xs">{job.location}</Text>
+        <span class="text-muted text-xs" aria-hidden="true">·</span>
+        <Text size="sm" muted class="!text-xs capitalize">{job.type.replace('-', ' ')}</Text>
+      </div>
+      <h3 class="text-ink group-hover:text-accent text-xl font-semibold tracking-tight">
+        {job.title}
+      </h3>
+      <Text muted size="sm" class="line-clamp-2">{job.description}</Text>
+    </div>
+    <Icon
+      name="arrow-right"
+      size={20}
+      class="text-muted group-hover:text-accent mt-1 shrink-0 transition-colors"
+    />
+  </div>
+</a>

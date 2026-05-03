@@ -36,3 +36,6 @@ jobs:
       - name: Lighthouse CI
         run: npx lhci autorun
         continue-on-error: false
+
+      - name: Link check
+        run: pnpm check:links

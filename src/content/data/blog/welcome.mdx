@@ -1,0 +1,25 @@
+---
+title: Welcome to the new imageleft
+excerpt: Why we rebuilt the marketing site from the ground up.
+publishedAt: 2026-05-02
+author:
+  name: Israel
+coverImage: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80&auto=format
+tags: [news, launch]
+---
+
+The new imageleft.com is live. This post explains the why and the how.
+
+## Why now
+
+The old site was a Next.js project mixing marketing and back-office concerns. The new
+imageleft.com is a static Astro site with content driven by an adapter. That means
+faster deploys, sharper pages, and a clean separation between what users see and what
+the team manages.
+
+## What changed
+
+- Static-first. No SSR. Pages render at build, served as plain HTML.
+- Content adapter. Posts, jobs, and customer stories share a typed interface so the
+  next iteration can swap to an HTTP API without touching call sites.
+- A real design system. Tokens, primitives, and sections all live in one place.

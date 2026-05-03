@@ -1,0 +1,85 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+import IconSquare from '../primitives/IconSquare.astro';
+import Icon from '../primitives/Icon.astro';
+import type { IconName } from '../primitives/Icon.astro';
+
+const steps: { title: string; body: string; icon: IconName }[] = [
+  {
+    title: 'Discovery',
+    body: 'We understand your idea, define the problem, and identify the right system to build.',
+    icon: 'compass',
+  },
+  {
+    title: 'Product design',
+    body: 'We translate your visions into structured flows, wireframes and clear product systems.',
+    icon: 'hand',
+  },
+  {
+    title: 'Development',
+    body: 'We build the product, from frontend to backend, integrating anything needed to make it work.',
+    icon: 'database',
+  },
+  {
+    title: 'Launch & Scale',
+    body: 'We help you launch, refine, and scale your product as it grows.',
+    icon: 'rocket',
+  },
+];
+---
+
+<section class="py-24">
+  <Container size="lg">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="space-y-6">
+        <PillBadge>How it works</PillBadge>
+
+        <Heading level={2} size="5xl">From idea to launch, a process that actually works.</Heading>
+
+        <Text muted size="lg" class="max-w-md">
+          We follow a repeatable, founder-tested system for building products. Each phase has clear
+          outputs so you always know where things stand.
+        </Text>
+
+        <div class="pt-2">
+          <Button href="/contact" variant="accent" size="lg">
+            <Icon name="google-meet" size={20} brandUseCurrent ariaLabel="Google Meet" />
+            Book a Free Call
+          </Button>
+        </div>
+      </div>
+
+      <ol class="relative">
+        {
+          steps.map((step, i) => (
+            <li class="relative">
+              <div class="bg-surface-soft border-border flex items-start gap-4 rounded-[var(--radius-md)] border p-5">
+                <IconSquare variant="dark" size="size-10" class="shrink-0">
+                  <Icon name={step.icon} size={20} class="text-surface" />
+                </IconSquare>
+                <div class="flex-1 space-y-1">
+                  <h3 class="text-ink font-sans text-base font-semibold">{step.title}</h3>
+                  <p class="text-muted text-sm">{step.body}</p>
+                </div>
+              </div>
+              {i < steps.length - 1 && (
+                <div
+                  class="ml-9 flex h-6 w-px flex-col items-center justify-around"
+                  aria-hidden="true"
+                >
+                  <span class="bg-border-strong h-1 w-1 rounded-full" />
+                  <span class="bg-border-strong h-1 w-1 rounded-full" />
+                  <span class="bg-border-strong h-1 w-1 rounded-full" />
+                </div>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </Container>
+</section>

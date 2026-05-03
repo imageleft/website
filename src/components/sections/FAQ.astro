@@ -1,0 +1,51 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
+import PillBadge from '../primitives/PillBadge.astro';
+import FAQAccordion from '../islands/FAQAccordion.tsx';
+
+const faqs = [
+  {
+    question: 'How long does it take to build a product?',
+    answer:
+      'Most discovery-to-launch projects ship in 8–14 weeks depending on scope and integrations. We share a phase-by-phase plan after the discovery call.',
+  },
+  {
+    question: 'Do you work with early-stage founders?',
+    answer:
+      'Yes. We work with pre-seed through Series A teams. We tailor scope to your runway and milestones.',
+  },
+  {
+    question: 'What does it cost to build a product?',
+    answer:
+      'Engagements typically range from $10k for focused MVPs to $50k+ for full systems. See the Pricing page for tier details.',
+  },
+  {
+    question: 'Can you improve an existing product?',
+    answer:
+      'Often yes. We start with an audit of your codebase and roadmap, then propose targeted phases: refactor, redesign, or extend.',
+  },
+];
+---
+
+<section class="py-24">
+  <Container size="md">
+    <div class="space-y-3 text-center">
+      <PillBadge>FAQ</PillBadge>
+      <Heading level={2} size="6xl">Questions founders often ask</Heading>
+      <Text muted class="mx-auto max-w-md">
+        Have questions? We've got answers.. Everything you need to know before you begin
+      </Text>
+    </div>
+
+    <div class="mt-12">
+      <FAQAccordion client:visible items={faqs} />
+    </div>
+
+    <div class="mt-10 flex justify-center">
+      <Button href="/contact" variant="outline">Ask us anything</Button>
+    </div>
+  </Container>
+</section>

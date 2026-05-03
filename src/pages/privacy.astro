@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Container from '../components/primitives/Container.astro';
+import Heading from '../components/primitives/Heading.astro';
+import Text from '../components/primitives/Text.astro';
+import PillBadge from '../components/primitives/PillBadge.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy | imageleft"
+  description="How imageleft collects, uses, and protects your information."
+  ogImage="/og/default.png"
+>
+  <SiteHeader slot="header" />
+
+  <section class="dotted-bg relative py-24">
+    <Container size="md" class="relative space-y-3 text-center">
+      <PillBadge>Legal</PillBadge>
+      <Heading level={1} size="5xl">Privacy Policy</Heading>
+      <Text muted>Last updated: May 2026</Text>
+    </Container>
+  </section>
+
+  <section class="py-16">
+    <Container size="md">
+      <div class="article-body space-y-8">
+        <div>
+          <h2>Information we collect</h2>
+          <p>
+            When you contact us via our contact form, we collect your name, email address, and the
+            message you send. We use this information solely to respond to your enquiry.
+          </p>
+        </div>
+
+        <div>
+          <h2>How we use your information</h2>
+          <p>
+            We use your contact information to reply to your message and, where relevant, to follow
+            up on project conversations. We do not sell, share, or rent your data to third parties.
+          </p>
+        </div>
+
+        <div>
+          <h2>Cookies</h2>
+          <p>
+            This site does not use tracking cookies or third-party analytics. Font files are loaded
+            from Google Fonts over HTTPS; Google's privacy policy applies to those requests.
+          </p>
+        </div>
+
+        <div>
+          <h2>Data retention</h2>
+          <p>
+            Contact form messages are retained only as long as needed to respond and are deleted
+            thereafter.
+          </p>
+        </div>
+
+        <div>
+          <h2>Contact</h2>
+          <p>
+            Questions about this policy? Reach us at <a href="mailto:hello@imageleft.com"
+              >hello@imageleft.com</a
+            >.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <SiteFooter slot="footer" />
+</BaseLayout>

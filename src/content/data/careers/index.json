@@ -1,0 +1,29 @@
+[
+  {
+    "id": "senior-product-engineer",
+    "title": "Senior Product Engineer",
+    "team": "Platform",
+    "location": "Remote · Africa preferred",
+    "type": "full-time",
+    "postedAt": "2026-05-02",
+    "description": "You'll lead end-to-end product engineering on client builds. Own architecture, ship features in tight cycles, and mentor mid-level engineers. We're looking for 5+ years across web and mobile, and a track record of taking products from idea to production."
+  },
+  {
+    "id": "product-designer",
+    "title": "Product Designer",
+    "team": "Design",
+    "location": "Remote · Anywhere",
+    "type": "full-time",
+    "postedAt": "2026-04-25",
+    "description": "Translate founder vision into clear product systems. You'll own UX flows, wireframes, and high-fidelity designs for client products. Strong systems thinking, comfort with ambiguity, and a portfolio that shows iteration are required."
+  },
+  {
+    "id": "ai-engineer-contract",
+    "title": "AI Engineer (contract)",
+    "team": "AI Automation",
+    "location": "Remote · Global",
+    "type": "contract",
+    "postedAt": "2026-04-10",
+    "description": "Six-month engagement to embed AI workflows into client products. You'll integrate LLM APIs, design prompt strategies, and build evals. Comes with a path to full-time for the right person."
+  }
+]

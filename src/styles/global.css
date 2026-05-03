@@ -1,0 +1,124 @@
+@import './theme.css';
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* Skip-to-content link (a11y) — initially visually hidden */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  background: var(--color-ink);
+  color: var(--color-surface);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+/*
+ * Dotted background pattern used behind hero / SystemsWeBuild / BusinessInABox.
+ * Matches Figma's 16px-grid dot field. Designed to layer behind content (z-index: 0).
+ */
+.dotted-bg {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/*
+ * Hide horizontal scrollbar on testimonial-style scroll regions when used.
+ * Currently unused after CustomerStories converted to grid; kept for future carousels.
+ */
+.scrollbar-hidden {
+  scrollbar-width: none;
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+ * Minimal article-body typography for blog post / customer story long-form content.
+ * Scoped so it only affects content inside `.article-body`.
+ * Replaces the need for @tailwindcss/typography for our limited markdown surface.
+ */
+.article-body {
+  color: var(--color-ink);
+  line-height: 1.7;
+}
+.article-body > * + * {
+  margin-top: 1.25em;
+}
+.article-body h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  letter-spacing: -0.02em;
+  margin-top: 2em;
+}
+.article-body h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: -0.02em;
+  margin-top: 1.75em;
+}
+.article-body p,
+.article-body li {
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+.article-body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.article-body a:hover {
+  text-decoration-thickness: 2px;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 1.5em;
+}
+.article-body ul {
+  list-style: disc;
+}
+.article-body ol {
+  list-style: decimal;
+}
+.article-body li + li {
+  margin-top: 0.5em;
+}
+.article-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 0.9em;
+  background: var(--color-surface-soft);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+}
+.article-body pre {
+  background: var(--color-ink-strong);
+  color: var(--color-surface);
+  padding: 1.25em 1.5em;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+.article-body pre code {
+  background: transparent;
+  padding: 0;
+}
+.article-body blockquote {
+  border-left: 3px solid var(--color-border-strong);
+  padding-left: 1em;
+  font-style: italic;
+  color: var(--color-muted);
+}

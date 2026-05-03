@@ -1,0 +1,94 @@
+---
+import Container from '../primitives/Container.astro';
+import Heading from '../primitives/Heading.astro';
+import Text from '../primitives/Text.astro';
+
+interface Step {
+  title: string;
+  body: string;
+}
+
+const steps: Step[] = [
+  {
+    title: 'Product thinking',
+    body: 'We turn loose ideas into a product brief. What it does, who it serves, why it matters.',
+  },
+  {
+    title: 'System architecture',
+    body: 'Everything is mapped at scale and woven into a coherent system before code.',
+  },
+  {
+    title: 'Design + development',
+    body: 'From interface to infrastructure. Pixels and pipelines built side by side.',
+  },
+  {
+    title: 'Testing & iteration',
+    body: 'We refine until it works in real-world hands, not just in demo.',
+  },
+  {
+    title: 'Launch support',
+    body: 'We stay close as your product enters production.',
+  },
+];
+
+/*
+ * 2-row layout for 5 cards:
+ *   Row 1: items 1, 2, 3 — each spans 2 of 6 columns (= 1/3 width).
+ *   Row 2: items 4, 5 — each spans 2 of 6 columns. Item 4 starts at col 2 so the
+ *   pair is centered with 1/6 empty on each side.
+ *
+ * Below `sm`, falls back to a single-column stack.
+ */
+function placement(i: number): string {
+  if (i < 3) return 'sm:col-span-2';
+  if (i === 3) return 'sm:col-span-2 sm:col-start-2';
+  return 'sm:col-span-2';
+}
+---
+
+<section class="py-24">
+  <Container size="lg">
+    <div class="space-y-3 text-center">
+      <Heading level={2} size="4xl">What goes into every project</Heading>
+      <Text muted class="mx-auto max-w-xl">
+        Building a product isn't a single phase. Every project moves through these five steps to
+        ship something honest.
+      </Text>
+    </div>
+
+    <ul class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-6">
+      {
+        steps.map((step, i) => (
+          <li
+            class:list={[
+              'border-border bg-surface flex h-full flex-col gap-3 rounded-[var(--radius-md)] border p-6',
+              placement(i),
+            ]}
+          >
+            <span
+              class="bg-surface-soft border-border text-muted inline-flex h-9 w-9 items-center justify-center rounded-full border"
+              aria-hidden="true"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21v-1a8 8 0 0 1 16 0v1" />
+              </svg>
+            </span>
+            <h3 class="text-ink text-base leading-tight font-semibold">{step.title}</h3>
+            <p class="text-muted text-sm leading-relaxed">{step.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</section>
