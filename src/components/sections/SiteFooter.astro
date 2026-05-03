@@ -3,6 +3,7 @@ import Container from '../primitives/Container.astro';
 import Icon from '../primitives/Icon.astro';
 import type { IconName } from '../primitives/Icon.astro';
 import { isExternalHref } from '../../lib/url';
+import { asset } from '../../lib/asset';
 
 const cols = [
   {
@@ -40,7 +41,7 @@ const year = new Date().getFullYear();
     <div class="grid grid-cols-1 gap-10 md:grid-cols-4">
       <a href="/" aria-label="imageleft home" class="inline-flex items-center">
         <img
-          src="/sections/brand/logo.svg"
+          src={asset('/sections/brand/logo.svg')}
           alt="imageleft"
           width="117"
           height="40"

@@ -8,7 +8,6 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://new.imageleft.com',
-  base: process.env.BASE_PATH ?? '/',
   output: 'static',
   integrations: [mdx(), react(), sitemap()],
   vite: {

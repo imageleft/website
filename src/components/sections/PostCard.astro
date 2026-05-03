@@ -2,6 +2,7 @@
 import PillBadge from '../primitives/PillBadge.astro';
 import Text from '../primitives/Text.astro';
 import type { BlogPost } from '../../content/schemas';
+import { asset } from '../../lib/asset';
 
 interface Props {
   post: BlogPost;
@@ -19,7 +20,7 @@ const formattedDate = post.publishedAt.toLocaleDateString('en-US', {
   class="border-border bg-surface flex flex-col overflow-hidden rounded-[var(--radius-md)] border"
 >
   <a href={`/blog/${post.slug}`} class="block">
-    <img src={post.coverImage} alt="" loading="lazy" class="aspect-[16/10] w-full object-cover" />
+    <img src={asset(post.coverImage)} alt="" loading="lazy" class="aspect-[16/10] w-full object-cover" />
   </a>
   <div class="flex flex-1 flex-col gap-3 p-5">
     <div class="flex items-center justify-between">

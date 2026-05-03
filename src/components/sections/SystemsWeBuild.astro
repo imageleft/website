@@ -3,6 +3,7 @@ import Container from '../primitives/Container.astro';
 import Heading from '../primitives/Heading.astro';
 import Text from '../primitives/Text.astro';
 import PillBadge from '../primitives/PillBadge.astro';
+import { asset } from '../../lib/asset';
 
 interface Row {
   title: string;
@@ -15,31 +16,31 @@ const rows: Row[] = [
   {
     title: 'Mobile products designed for speed, usability, and real-world use.',
     body: 'Native-feeling mobile apps that ship fast and stay responsive at scale.',
-    image: '/sections/systems/mobile.png',
+    image: asset('/sections/systems/mobile.png'),
     alt: 'Mobile wallet app screen mockup',
   },
   {
     title: 'Web platforms with admin and analytics built in.',
     body: 'Dashboards, settings, and reporting layers ready for day-one operations.',
-    image: '/sections/systems/dashboard.png',
+    image: asset('/sections/systems/dashboard.png'),
     alt: 'SaaS file management dashboard mockup',
   },
   {
     title: 'Auth, payments, and integrations wired end-to-end.',
     body: 'Stripe, Paystack, OAuth, M-Pesa, GitHub. All connected without surprises.',
-    image: '/sections/systems/integrations.png',
+    image: asset('/sections/systems/integrations.png'),
     alt: 'Third-party integration logos cluster',
   },
   {
     title: 'Notifications and messaging that reach the right people.',
     body: 'Email, in-app, and push notifications with templated, observable delivery.',
-    image: '/sections/systems/notifications.png',
+    image: asset('/sections/systems/notifications.png'),
     alt: 'Notification cards stacked',
   },
   {
     title: 'Marketplaces and two-sided systems wired with care.',
     body: 'Buyer and seller flows, escrow, dispute paths. All modeled before code.',
-    image: '/sections/systems/marketplace.png',
+    image: asset('/sections/systems/marketplace.png'),
     alt: 'Buyer-to-seller flow diagram',
   },
 ];

@@ -8,6 +8,7 @@ import Heading from '../../components/primitives/Heading.astro';
 import Text from '../../components/primitives/Text.astro';
 import PillBadge from '../../components/primitives/PillBadge.astro';
 import Button from '../../components/primitives/Button.astro';
+import { asset } from '../../lib/asset';
 
 export async function getStaticPaths() {
   const entries = await getCollection('blog');
@@ -48,7 +49,7 @@ const formattedDate = entry.data.publishedAt.toLocaleDateString('en-US', {
       </div>
 
       <img
-        src={entry.data.coverImage}
+        src={asset(entry.data.coverImage)}
         alt={entry.data.title}
         class="border-border mx-auto mt-12 aspect-[16/9] w-full max-w-3xl rounded-[var(--radius-lg)] border object-cover"
       />
