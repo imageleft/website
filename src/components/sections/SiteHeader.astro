@@ -1,6 +1,7 @@
 ---
 import Container from '../primitives/Container.astro';
 import MobileNav from '../islands/MobileNav.tsx';
+import { asset } from '../../lib/asset';
 
 const nav = [
   { href: '/#about', label: 'About' },
@@ -18,7 +19,7 @@ const nav = [
   <Container size="xl" as="nav" class="flex items-center justify-between py-3">
     <a href="/" aria-label="imageleft home" class="inline-flex items-center">
       <img
-        src="/sections/brand/logo.svg"
+        src={asset('/sections/brand/logo.svg')}
         alt="imageleft"
         width="117"
         height="40"
