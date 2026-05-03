@@ -59,32 +59,16 @@ vi.mock('astro:content', () => {
     },
   ];
 
-  const stories = [
-    {
-      id: 'acme',
-      data: {
-        customer: 'Acme Corp',
-        logo: '/logos/acme.svg',
-        industry: 'Fintech',
-        summary: 'A great story.',
-        metrics: [{ label: 'TTL', value: '90 days' }],
-        body: '...',
-      },
-    },
-  ];
-
   return {
     getCollection: vi.fn(async (collection: string) => {
       if (collection === 'blog') return blog;
       if (collection === 'careers') return careers;
-      if (collection === 'stories') return stories;
       return [];
     }),
     getEntry: vi.fn(async (collection: string, slug: string) => {
       const lookup: Record<string, Array<{ id: string }>> = {
         blog,
         careers,
-        stories,
       };
       const set = lookup[collection];
       if (!set) return null;
@@ -93,14 +77,7 @@ vi.mock('astro:content', () => {
   };
 });
 
-import {
-  getBlogPost,
-  getBlogPosts,
-  getJob,
-  getJobs,
-  getStories,
-  getStory,
-} from '../../src/content';
+import { getBlogPost, getBlogPosts, getJob, getJobs } from '../../src/content';
 
 describe('local content adapter — blog', () => {
   it('returns posts sorted by publishedAt desc', async () => {
@@ -145,20 +122,3 @@ describe('local content adapter — careers', () => {
   });
 });
 
-describe('local content adapter — stories', () => {
-  it('returns stories', async () => {
-    const stories = await getStories();
-    expect(stories.length).toBe(1);
-    expect(stories[0].slug).toBe('acme');
-  });
-
-  it('returns null for an unknown slug', async () => {
-    expect(await getStory('not-real')).toBeNull();
-  });
-
-  it('returns the matching story by slug', async () => {
-    const story = await getStory('acme');
-    expect(story).not.toBeNull();
-    expect(story!.customer).toBe('Acme Corp');
-  });
-});

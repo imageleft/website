@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BlogPost, CustomerStory, Job } from '../../src/content/schemas';
+import { BlogPost, Job } from '../../src/content/schemas';
 
 describe('BlogPost schema', () => {
   const validPost = {
@@ -75,38 +75,3 @@ describe('Job schema', () => {
   });
 });
 
-describe('CustomerStory schema', () => {
-  const validStory = {
-    slug: 'acme',
-    customer: 'Acme Corp',
-    logo: '/logos/acme.png',
-    industry: 'Fintech',
-    summary: 'How Acme launched in 90 days.',
-    body: 'Long-form story content.',
-  };
-
-  it('parses a valid story', () => {
-    expect(CustomerStory.safeParse(validStory).success).toBe(true);
-  });
-
-  it('defaults metrics to empty array', () => {
-    const parsed = CustomerStory.parse(validStory);
-    expect(parsed.metrics).toEqual([]);
-  });
-
-  it('parses metrics with label + value', () => {
-    const parsed = CustomerStory.parse({
-      ...validStory,
-      metrics: [
-        { label: 'Time to launch', value: '90 days' },
-        { label: 'MAU growth', value: '12x' },
-      ],
-    });
-    expect(parsed.metrics).toHaveLength(2);
-    expect(parsed.metrics[0].label).toBe('Time to launch');
-  });
-
-  it('rejects a story missing required fields', () => {
-    expect(CustomerStory.safeParse({ slug: 'x' }).success).toBe(false);
-  });
-});
