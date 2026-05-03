@@ -8,11 +8,14 @@ node_modules/
 # logs
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # env
 .env
 .env.local
 .env.*.local
+.env.production
 !.env.example
 
 # editor
@@ -26,3 +29,9 @@ yarn-debug.log*
 
 # CI artifacts
 .lighthouseci/
+
+# Temporary working notes (kept until tokens are committed to theme.css)
+docs/figma-tokens.md
+
+# Figma frame renders (cached PNGs from MCP — used during design extraction)
+.figma-cache/

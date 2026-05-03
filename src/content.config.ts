@@ -1,6 +1,6 @@
 import { file, glob } from 'astro/loaders';
 import { defineCollection } from 'astro:content';
-import { BlogPost, CustomerStory, Job } from './content/schemas';
+import { BlogPost, Job } from './content/schemas';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/data/blog' }),
@@ -14,9 +14,4 @@ const careers = defineCollection({
   schema: Job.omit({ slug: true }),
 });
 
-const stories = defineCollection({
-  loader: file('./src/content/data/stories/index.json'),
-  schema: CustomerStory.omit({ slug: true }),
-});
-
-export const collections = { blog, careers, stories };
+export const collections = { blog, careers };

@@ -1,5 +1,5 @@
 import { getCollection, getEntry } from 'astro:content';
-import type { BlogPost, CustomerStory, Job } from '../schemas';
+import type { BlogPost, Job } from '../schemas';
 
 /**
  * Local content adapter — backed by Astro Content Collections (filesystem).
@@ -34,13 +34,3 @@ export async function getJob(slug: string): Promise<Job | null> {
   return { ...entry.data, slug: entry.id };
 }
 
-export async function getStories(): Promise<CustomerStory[]> {
-  const entries = await getCollection('stories');
-  return entries.map((e) => ({ ...e.data, slug: e.id }));
-}
-
-export async function getStory(slug: string): Promise<CustomerStory | null> {
-  const entry = await getEntry('stories', slug);
-  if (!entry) return null;
-  return { ...entry.data, slug: entry.id };
-}

@@ -38,18 +38,26 @@ The static site is a pure read-only consumer. It writes nothing. The only user-i
 
 ---
 
-## 3. Scope — pages (tentative)
+## 3. Scope — pages (locked 2026-05-02 after Figma probe)
 
-Page list will be confirmed after Figma analysis. Working set:
+1. **Home** — long-form: hero + about · systems we build · our services · how it works · business in a box · blog (preview) · customer stories (preview) · FAQ · "Ready to Build?" CTA · footer
+2. **Community** — thin landing: hero with email-capture pill input → "Ready to Build?" CTA → footer
+3. **Pricing** — hero (with tier table) + secondary block + "Ready to Build?" CTA + footer
+4. **Contact** — hero (with `mailto:` form) + footer (no "Ready to Build?" CTA — page is itself a contact)
+5. **Blog** — list (`/blog`) Figma-driven; detail (`/blog/[slug]`) designed in-house using primitives + typography
+6. **Careers** — list (`/careers`) Figma-driven (desktop-only frame; responsive ours); detail (`/careers/[slug]`) designed in-house
+7. **Customer Stories** — list (`/stories`) and detail (`/stories/[slug]`); both designed in-house (no Figma frames)
+8. **404** and **500** — minimal in-house designs
 
-1. **Home** — long-form, sections include: about · systems we build · our services · how it works · business in a box · blog (preview) · customer stories (preview) · FAQ · contact · footer
-2. **Community**
-3. **Pricing**
-4. **Contact**
-5. **Blog** — list (`/blog`) + detail (`/blog/[slug]`)
-6. **Career** — list (`/careers`) + detail (`/careers/[slug]`)
+Shared chrome (build once, reuse via `BaseLayout` + Astro components):
 
-Plus shared chrome: site header, site footer, 404, possibly a 500. Sitemap + `robots.txt` generated at build.
+- `Header` — sticky, backdrop-blur, padding 12px 40px, fill `rgba(252,252,252,0.05)`, bottom border `#E9E7EA`. Logo + nav links.
+- `Footer` — dual-row: top `padding: 64px 80px` two-column; bottom `padding: 20–32px 80px` with © left + links right.
+- `ReadyToBuildCTA` — column 765w, pill button (radius 50px, fill `#F8F8F7`, stroke `#DADADA`), tagline "We respond within 24 hours. No automated sequences." (Inter 11). Used on Home, Community, Pricing, Blog. NOT on Contact.
+
+**Responsive strategy:** desktop-first, NOT strict per-viewport parity with Figma's DESKTOP/IPAD/PHONE frames. Single responsive build; Figma iPad/Phone frames are reference-only (don't pixel-match). For Career (desktop-only frame), extrapolate using the same patterns as Pricing/Blog.
+
+**Sitemap & `robots.txt`:** generated at build (M6.1).
 
 ---
 

@@ -1,4 +1,4 @@
-import type { BlogPost, CustomerStory, Job } from '../schemas';
+import type { BlogPost, Job } from '../schemas';
 
 /**
  * HTTP content adapter — placeholder for v2.
@@ -20,11 +20,5 @@ export async function getJobs(): Promise<Job[]> {
   throw new Error(NOT_IMPLEMENTED);
 }
 export async function getJob(_slug: string): Promise<Job | null> {
-  throw new Error(NOT_IMPLEMENTED);
-}
-export async function getStories(): Promise<CustomerStory[]> {
-  throw new Error(NOT_IMPLEMENTED);
-}
-export async function getStory(_slug: string): Promise<CustomerStory | null> {
   throw new Error(NOT_IMPLEMENTED);
 }

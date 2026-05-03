@@ -12,7 +12,7 @@
 
 import * as http from './adapters/http';
 import * as local from './adapters/local';
-import type { BlogPost, CustomerStory, Job } from './schemas';
+import type { BlogPost, Job } from './schemas';
 
 const source = import.meta.env.CONTENT_SOURCE ?? 'local';
 
@@ -22,5 +22,3 @@ export const getBlogPosts = (): Promise<BlogPost[]> => adapter.getBlogPosts();
 export const getBlogPost = (slug: string): Promise<BlogPost | null> => adapter.getBlogPost(slug);
 export const getJobs = (): Promise<Job[]> => adapter.getJobs();
 export const getJob = (slug: string): Promise<Job | null> => adapter.getJob(slug);
-export const getStories = (): Promise<CustomerStory[]> => adapter.getStories();
-export const getStory = (slug: string): Promise<CustomerStory | null> => adapter.getStory(slug);

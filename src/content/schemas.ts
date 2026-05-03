@@ -31,13 +31,3 @@ export const Job = z.object({
 });
 export type Job = z.infer<typeof Job>;
 
-export const CustomerStory = z.object({
-  slug: z.string(),
-  customer: z.string(),
-  logo: z.string(),
-  industry: z.string(),
-  summary: z.string(),
-  metrics: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
-  body: z.string(),
-});
-export type CustomerStory = z.infer<typeof CustomerStory>;

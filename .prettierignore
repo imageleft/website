@@ -1,0 +1,7 @@
+dist
+.astro
+node_modules
+pnpm-lock.yaml
+
+# Documentation — preserve as authored (contains verbatim code snippets read by future tasks).
+docs
