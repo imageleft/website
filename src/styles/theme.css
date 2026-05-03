@@ -22,6 +22,10 @@
   /* Decoration — sampled from Figma hero columns and inline ornaments */
   --color-decoration-pink: #f6bdec;
   --color-decoration-lavender: #b7c9fb;
+  --color-decoration-yellow: #fcd34d;
+  --color-decoration-mint: #a7f3d0;
+  --color-decoration-rose: #fda4af;
+  --color-decoration-cream: #ffe08a;
 
   /* Type — Inter (sans) + Playfair Display (serif) loaded via Google Fonts in BaseLayout (M2.2) */
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
