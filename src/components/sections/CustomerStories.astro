@@ -11,30 +11,18 @@ const stories = [
       'We translated a complex payments idea into a real platform. From product brief to launch in 14 weeks.',
     author: 'Bibi Gabriel',
     role: 'Founder, Fintech Startup',
-    metrics: [
-      { label: 'Time to launch', value: '14 weeks' },
-      { label: 'Active users at MVP', value: '1,200' },
-    ],
   },
   {
     quote:
       'A clinical-records platform built with care. Compliance, audit trails, and a UI that nurses actually want to use.',
     author: 'Adaeze Okafor',
     role: 'Founder, HealthTech',
-    metrics: [
-      { label: 'Compliance audit', value: 'Passed first try' },
-      { label: 'Avg session time', value: '8 min' },
-    ],
   },
   {
     quote:
       'They challenged our scope and got us to launch fast. Pushed back on a third of our spec — that saved us months.',
     author: 'Tom Reyes',
     role: 'Founder, B2B SaaS',
-    metrics: [
-      { label: 'Scope cut', value: '38%' },
-      { label: 'Time saved', value: '11 weeks' },
-    ],
   },
 ];
 ---
@@ -57,16 +45,7 @@ const stories = [
 
             <p class="text-ink flex-1 text-base leading-relaxed font-medium">{story.quote}</p>
 
-            <dl class="border-border grid grid-cols-2 gap-x-4 gap-y-2 border-t pt-4">
-              {story.metrics.map((m) => (
-                <div>
-                  <dt class="text-muted text-[10px] tracking-wider uppercase">{m.label}</dt>
-                  <dd class="text-ink text-sm font-semibold">{m.value}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <div>
+            <div class="border-border border-t pt-4">
               <p class="text-ink text-sm font-semibold">{story.author}</p>
               <p class="text-muted text-xs">{story.role}</p>
             </div>
