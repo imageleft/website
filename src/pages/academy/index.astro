@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/sections/SiteHeader.astro';
+import SiteFooter from '../../components/sections/SiteFooter.astro';
+import Container from '../../components/primitives/Container.astro';
+import Heading from '../../components/primitives/Heading.astro';
+import Text from '../../components/primitives/Text.astro';
+import PillBadge from '../../components/primitives/PillBadge.astro';
+import Button from '../../components/primitives/Button.astro';
+import ReadyToBuildCTA from '../../components/sections/ReadyToBuildCTA.astro';
+
+const features = [
+  {
+    title: 'Code',
+    description:
+      "Learn programming languages and frameworks used in today's industry",
+  },
+  {
+    title: 'Artificial Intelligence',
+    description: 'Master AI concepts for the real-world.',
+  },
+  {
+    title: 'Project Based',
+    description: 'Build products to showcase.',
+  },
+  {
+    title: 'Community Support',
+    description: 'Learn and engage with a community of builders & creators.',
+  },
+];
+
+const tracks = [
+  'Programming Fundamentals, Web & AI Integration',
+  'Sales Systems & Revenue Execution',
+  'Marketing, Positioning & Growth',
+  'Writing',
+];
+
+const programs = [
+  { title: 'Programming', emoji: '💻', description: 'From zero to full-stack, AI-powered...' },
+  { title: 'Sales', emoji: '📈', description: 'Close deals. Build pipelines...' },
+  { title: 'Marketing', emoji: '📣', description: 'Build audiences. Drive demand...' },
+  { title: 'Writing', emoji: '✍️', description: 'From idea to words to action...' },
+  
+];
+---
+
+<BaseLayout
+  title="Academy | imageleft"
+  description="A 12 weeks online bootcamp designed for the AI era."
+  ogImage="/og/academy.png"
+>
+  <SiteHeader slot="header" />
+
+<!-- HERO -->
+<section class="px-4 py-10 md:px-8">
+ <div class="relative overflow-hidden bg-[#0d0d0d] py-32 text-white
+              before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-16
+              before:bg-white before:rounded-b-[50%]
+              after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-16
+              after:bg-white after:rounded-t-[50%]">
+    <!-- glow -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute left-1/2 top-0 h-125 w-125 -translate-x-1/2 rounded-full bg-violet-500 blur-3xl"></div>
+    </div>
+
+    <Container size="xl" class="relative z-10">
+      <div class="mx-auto max-w-4xl text-center">
+        <PillBadge>
+          imageleft Academy
+        </PillBadge>
+
+        <Text class="mt-6 text-white/70">
+          A 12 weeks online bootcamp designed for the AI era
+        </Text>
+
+        <Heading
+          level={1}
+          size="6xl"
+          class="mt-6 leading-tight text-white"
+        >
+          Learn How Real Products are Built
+        </Heading>
+
+        <Text class="mx-auto mt-8 max-w-2xl text-lg text-white/70">
+          Imageleft Academy is a hands-on learning experience for designers and
+          developers who want to move beyond tutorials and start building real,
+          working products.
+        </Text>
+
+        <div class="mt-10 flex justify-center">
+          <Button href="#pricing" variant="accent" size="lg">
+            Apply to Join
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </div>
+</section>
+
+  <!-- FEATURES -->
+  <section class="py-24">
+    <Container size="xl">
+      <div class="text-center">
+        <Heading level={2} size="4xl">
+          imageleft - Academy brings you
+        </Heading>
+
+        <Text muted class="mx-auto mt-4 max-w-2xl">
+          Theory(35%) and practice(65%) to prepare you for the artificial
+          intelligence era.
+        </Text>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {
+          features.map((feature) => (
+             <div class="rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-surface p-8 transition-all hover:-translate-y-1 shadow-all">
+              <Heading level={3} size="xl">
+                {feature.title}
+              </Heading>
+
+              <Text muted class="mt-4">
+                {feature.description}
+              </Text>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <!-- LEARNING MATERIALS -->
+  
+<section class="bg-surface py-24">
+  <Container size="xl">
+    <div class="text-center">
+      <Heading level={2} size="4xl">
+        Learning Materials
+      </Heading>
+
+      <Text muted class="mx-auto mt-4 max-w-2xl">
+        Structured resources aligned with academy specializations.
+      </Text>
+    </div>
+
+    <ul class="mt-16 max-w-2xl mx-auto space-y-3">
+  {
+    tracks.map((track) => (
+      <li class="flex items-center justify-between px-6 py-5 rounded-[var(--radius-xl)] bg-background shadow-all border border-[var(--color-border)]">
+        <span class="font-medium">{track}</span>
+        <button class="text-sm font-medium text-accent transition-opacity hover:opacity-70 shrink-0 ml-4">
+          View tracks →
+        </button>
+      </li>
+    ))
+  }
+</ul>
+  </Container>
+</section>
+
+  <!-- PRICING -->
+
+  <section id="pricing" class="py-24">
+    <Container size="xl">
+      <div class="text-center">
+        <Heading level={2} size="4xl">
+          Pricing plans for imageleft Academy
+        </Heading>
+
+        <Text muted class="mx-auto mt-4 max-w-2xl">
+          Structured resources aligned with academy specializations.
+        </Text>
+      </div>
+
+      <div class="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 lg:grid-cols-2">
+
+ <!-- FREE -->
+
+         <div class="rounded-[var(--radius-2xl)] border border-[var(--color-border)] bg-surface p-10 shadow-all">
+          <Text muted>Free</Text>
+
+          <Heading level={3} size="5xl" class="mt-4">
+            $0
+          </Heading>
+
+          <ul class="mt-8 space-y-4 text-muted">
+            <li>✓ Community access</li>
+            <li>✓ Core learning materials</li>
+            <li>✓ Track orientation support</li>
+            <li>✓ Onboarding session recap</li>
+          </ul>
+
+          <div class="mt-10">
+            <Button href="#">Get Started</Button>
+          </div>
+        </div>
+
+ <!-- PREMIUM -->
+        
+  <div class="rounded-[var(--radius-2xl)] overflow-hidden bg-ink text-white">
+  <!-- Gradient header -->
+  <div class="relative p-8 pb-10" style="background: linear-gradient(135deg, #7EB3F7 0%, #ece9f6 90%);">
+    <div class="flex items-center justify-between">
+      <Text class="text-white font-medium">Premium</Text>
+      <span class="rounded-full bg-white text-ink text-sm font-medium px-4 py-1">
+        Most Popular
+      </span>
+    </div>
+    <Heading level={3} size="5xl" class="mt-16 text-white">
+      $20
+    </Heading>
+  </div>
+
+  <!-- Features -->
+
+  <div class="p-8 space-y-4">
+    {['12 week full program', 'Live weekly sessions', 'Mentor project reviews', 'AI integration modules', 'Certificate of completion'].map((item) => (
+      <div class="flex items-center gap-3">
+        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-accent">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="text-white/80">{item}</span>
+      </div>
+    ))}
+  </div>
+
+  <!-- CTA -->
+  <div class="px-8 pb-8">
+    <Button href="#" variant="accent" class="w-full">Get Started</Button>
+  </div>
+ </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="bg-surface py-24">
+    <Container size="xl">
+      <div class="text-center">
+        <Heading level={2} size="4xl">
+          theory(35%) and practice(65%)
+        </Heading>
+
+        <Text muted class="mx-auto mt-4 max-w-2xl">
+          Prepare yourself for the artificial intelligence era.
+        </Text>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        { programs.map((program) => (
+       <div class="rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-background p-8 flex flex-col shadow-all">
+
+      <!-- Emoji avatar -->
+      <div class="w-12 h-12 rounded-full bg-[var(--color-border)] flex items-center justify-center text-2xl mb-6">
+        {program.emoji}
+      </div>
+
+      <Heading level={3} size="xl">
+        {program.title}
+      </Heading>
+
+      <Text muted class="mt-3 flex-1">
+        {program.description}
+      </Text>
+
+      <div class="mt-8 flex items-center justify-between border-t border-[var(--color-border)] pt-6 text-sm text-muted">
+        <span class="flex items-center gap-1">🕐 12 weeks</span>
+        <span class="flex items-center gap-1">👤 Beginner to Advanced</span>
+      </div>
+    </div>
+  ))
+}
+      </div>
+    </Container>
+  </section>
+
+  <ReadyToBuildCTA />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>
