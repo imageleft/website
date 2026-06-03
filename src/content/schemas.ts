@@ -10,12 +10,13 @@ export const BlogPost = z.object({
   slug: z.string(),
   title: z.string(),
   excerpt: z.string(),
+  content: z.string().optional(),
   publishedAt: z.coerce.date(),
   author: z.object({
     name: z.string(),
-    avatar: z.url().optional(),
+    avatar: z.string().optional(),
   }),
-  coverImage: z.string(),
+  coverImage: z.string().optional(),
   tags: z.array(z.string()).default([]),
 });
 export type BlogPost = z.infer<typeof BlogPost>;

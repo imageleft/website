@@ -19,7 +19,28 @@ const formattedDate = post.publishedAt.toLocaleDateString('en-US', {
   class="border-border bg-surface flex flex-col overflow-hidden rounded-[var(--radius-md)] border"
 >
   <a href={`/blog/${post.slug}`} class="block">
-    <img src={post.coverImage} alt="" loading="lazy" class="aspect-[16/10] w-full object-cover" />
+    {post.coverImage ? (
+      <img
+        src={post.coverImage}
+        alt={post.title}
+        class="aspect-video w-full object-cover rounded-t-lg"
+      />
+    ) : (
+      <div class="aspect-video w-full relative overflow-hidden rounded-t-lg bg-[#05021b] flex items-center justify-center">
+      
+        <div class="absolute inset-0 opacity-30">
+          <div class="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500 blur-2xl"></div>
+        </div>
+       
+        <span class="relative text-8xl font-bold text-white/10 select-none font-display">
+          {post.title.charAt(0).toUpperCase()}
+        </span>
+       
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+          <p class="text-xs font-medium text-white/80 line-clamp-1">{post.title}</p>
+        </div>
+      </div>
+    )}
   </a>
   <div class="flex flex-1 flex-col gap-3 p-5">
     <div class="flex items-center justify-between">

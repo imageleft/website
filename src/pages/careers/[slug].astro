@@ -9,6 +9,8 @@ import Button from '../../components/primitives/Button.astro';
 import PillBadge from '../../components/primitives/PillBadge.astro';
 import { getJobs } from '../../content';
 import type { Job } from '../../content/schemas';
+import { marked } from 'marked';
+
 
 export async function getStaticPaths() {
   const jobs = await getJobs();
@@ -56,17 +58,17 @@ const formattedDate = job.postedAt.toLocaleDateString('en-US', {
       </div>
 
       <div class="article-body">
-        <p>{job.description}</p>
+        <Fragment set:html={marked.parse(job.description)} />
       </div>
 
       <div class="border-border flex flex-wrap items-center gap-3 border-t pt-8">
         <Button
-          href={`mailto:hello@imageleft.com?subject=Application: ${encodeURIComponent(job.title)}`}
-          variant="accent"
-          size="lg"
-        >
-          Apply for this role
-        </Button>
+        href={`https://imageleft.com/careers/${Astro.params.slug}/apply`}
+        variant="accent"
+        size="lg"
+      >
+        Apply for this role
+      </Button>
         <Button href="/careers" variant="outline">Back to all roles</Button>
       </div>
     </Container>
