@@ -2,6 +2,7 @@
 import Container from '../primitives/Container.astro';
 import Heading from '../primitives/Heading.astro';
 import Text from '../primitives/Text.astro';
+import Button from '../primitives/Button.astro';
 import PillBadge from '../primitives/PillBadge.astro';
 
 // No props needed — form POSTs to the Back Office leads API directly.
@@ -21,16 +22,7 @@ const inputClass =
       </Text>
     </div>
 
-    {
-      /*
-      Form notes:
-        - With JS, a small inline script (below) intercepts submit, builds a nicely-formatted
-          mailto URL with `subject` and `body` query params, and opens the user's mail client.
-        - Without JS, the form falls back to the native mailto+text/plain submission.
-          Less pretty, but it still works.
-        - `data-mailto-form` is the hook the script uses. `data-to` carries the recipient.
-    */
-    }
+    {/* data-contact-form is the hook used by the inline script to attach the submit listener. */}
     <form
       data-contact-form
       class="mx-auto mt-12 grid max-w-xl grid-cols-1 gap-5"
@@ -73,13 +65,7 @@ const inputClass =
           class={inputClass}></textarea>
       </label>
 
-      <button
-        type="submit"
-        id="contact-submit"
-        class="btn-accent w-full rounded-[var(--radius-lg)] bg-accent px-6 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
-      >
-        Send message
-      </button>
+      <Button type="submit" variant="accent" size="lg" class="w-full">Send message</Button>
 
       <p id="contact-status" class="hidden text-center text-sm" aria-live="polite"></p>
     </form>
@@ -90,7 +76,7 @@ const inputClass =
   const LEADS_URL = '/api/v1/public/leads';
 
   const form = document.querySelector<HTMLFormElement>('form[data-contact-form]');
-  const submitBtn = document.getElementById('contact-submit');
+  const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const statusEl = document.getElementById('contact-status');
 
   function setStatus(msg: string, isError = false) {

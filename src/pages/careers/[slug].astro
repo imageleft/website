@@ -106,11 +106,7 @@ const jobId = job.id;
           <input name="company_url" type="text" class="hidden" tabindex="-1" autocomplete="off" />
 
           <div class="flex flex-wrap items-center gap-3 sm:col-span-2">
-            <button
-              type="submit"
-              id="apply-submit"
-              class="rounded-[var(--radius-lg)] bg-accent px-6 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
-            >Submit application</button>
+            <Button type="submit" variant="accent" size="lg">Submit application</Button>
             <Button href="/careers" variant="outline">Back to all roles</Button>
           </div>
           <p id="apply-status" class="hidden sm:col-span-2 text-sm" aria-live="polite"></p>
@@ -144,7 +140,7 @@ const jobId = job.id;
 
 <script>
   const form = document.getElementById('apply-form') as HTMLFormElement | null;
-  const submitBtn = document.getElementById('apply-submit') as HTMLButtonElement | null;
+  const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const statusEl = document.getElementById('apply-status');
 
   function setStatus(msg: string, isError = false) {
