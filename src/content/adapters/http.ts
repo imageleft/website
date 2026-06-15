@@ -42,6 +42,7 @@ const JOB_TYPE_MAP: Record<string, Job['type']> = {
 
 function mapJob(raw: Record<string, unknown>): Job {
   return {
+    id: raw.id as string,
     slug: (raw.slug as string | null) ?? (raw.id as string),
     title: raw.title as string,
     team: (raw.team as string | null) ?? 'imageleft',

@@ -21,7 +21,8 @@ export const BlogPost = z.object({
 export type BlogPost = z.infer<typeof BlogPost>;
 
 export const Job = z.object({
-  slug: z.string(),
+  id: z.string(),   // Back Office DB id — used for submitting job applications
+  slug: z.string(), // URL-safe identifier for routing
   title: z.string(),
   team: z.string(),
   location: z.string(),
