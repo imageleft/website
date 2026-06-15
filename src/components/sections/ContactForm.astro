@@ -5,7 +5,7 @@ import Text from '../primitives/Text.astro';
 import Button from '../primitives/Button.astro';
 import PillBadge from '../primitives/PillBadge.astro';
 
-// No props needed — form POSTs to the Back Office leads API directly.
+const apiBase = import.meta.env.BACKOFFICE_URL ?? '';
 
 const inputClass =
   'mt-1.5 w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-surface px-4 py-2.5 text-base text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors';
@@ -25,6 +25,7 @@ const inputClass =
     {/* data-contact-form is the hook used by the inline script to attach the submit listener. */}
     <form
       data-contact-form
+      data-api-url={`${apiBase}/api/v1/public/leads`}
       class="mx-auto mt-12 grid max-w-xl grid-cols-1 gap-5"
       novalidate
     >
@@ -73,9 +74,8 @@ const inputClass =
 </section>
 
 <script>
-  const LEADS_URL = '/api/v1/public/leads';
-
   const form = document.querySelector<HTMLFormElement>('form[data-contact-form]');
+  const LEADS_URL = form?.dataset.apiUrl ?? '/api/v1/public/leads';
   const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const statusEl = document.getElementById('contact-status');
 

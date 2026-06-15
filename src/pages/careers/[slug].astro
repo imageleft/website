@@ -20,6 +20,7 @@ const formattedDate = job.postedAt.toLocaleDateString('en-US', {
 });
 // job.id is the Back Office DB id — required by the applications API.
 const jobId = job.id;
+const applicationsUrl = `${import.meta.env.BACKOFFICE_URL ?? ''}/api/v1/public/applications`;
 ---
 
 <BaseLayout
@@ -57,6 +58,7 @@ const jobId = job.id;
         <form
           id="apply-form"
           data-job-id={jobId}
+          data-api-url={applicationsUrl}
           class="grid grid-cols-1 gap-5 sm:grid-cols-2"
           novalidate
         >
@@ -152,7 +154,8 @@ const jobId = job.id;
     if (submitBtn) submitBtn.disabled = true;
 
     try {
-      const res = await fetch('/api/v1/public/applications', {
+      const apiUrl = form.dataset.apiUrl ?? '/api/v1/public/applications';
+      const res = await fetch(apiUrl, {
         method: 'POST',
         body: fd,
         // No Content-Type header — browser sets it with the correct multipart boundary
