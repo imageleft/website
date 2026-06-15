@@ -30,6 +30,7 @@ function mapPost(raw: Record<string, unknown>): BlogPost {
     },
     coverImage: (raw.coverImageUrl as string | null) ?? '',
     tags: (raw.tags as string[]) ?? [],
+    body: raw.body as string | undefined,
   };
 }
 

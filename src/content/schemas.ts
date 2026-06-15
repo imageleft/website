@@ -17,6 +17,8 @@ export const BlogPost = z.object({
   }),
   coverImage: z.string(),
   tags: z.array(z.string()).default([]),
+  // Raw markdown body — present on detail fetches, absent on list fetches.
+  body: z.string().optional(),
 });
 export type BlogPost = z.infer<typeof BlogPost>;
 
