@@ -8,16 +8,9 @@ import Heading from '../../components/primitives/Heading.astro';
 import Text from '../../components/primitives/Text.astro';
 import PillBadge from '../../components/primitives/PillBadge.astro';
 import Button from '../../components/primitives/Button.astro';
-import { getBlogPosts, getBlogPost } from '../../content';
+import { getBlogPost } from '../../content';
 
 const FALLBACK_COVER = '/og/blog.png';
-
-export async function getStaticPaths() {
-  const posts = await getBlogPosts();
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
-}
 
 const { slug } = Astro.params;
 const post = await getBlogPost(slug!);

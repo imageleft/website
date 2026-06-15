@@ -8,7 +8,7 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://new.imageleft.com',
-  output: 'static',
+  output: 'server',
   integrations: [mdx(), react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
