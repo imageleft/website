@@ -2,10 +2,13 @@
 
 A pure domain glossary. One entry per term; what it *is*, not how it's implemented.
 
-> The site is a **pure static consumer** at `imageleft.com`. It reads content and displays it;
-> it never authenticates, never writes to a database, and never runs server-side code.
+> The site is a **server-rendered consumer** at `imageleft.com` (`output: 'server'`). It reads
+> content from the Back Office public API and renders pages on-demand. It never authenticates and
+> never writes to a database, but it does run server-side rendering (Node.js at runtime).
 > Dynamic content (blog, careers, testimonials) is sourced from either local files (dev/fallback)
 > or the **Back Office public API** (production), selected by the `CONTENT_SOURCE` env var.
+> The switch from `output: 'static'` to `output: 'server'` was made to support dynamic routes
+> (blog slugs, career slugs) sourced from the API without pre-enumerating paths at build time.
 
 ---
 
