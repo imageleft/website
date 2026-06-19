@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import cloudflare from '@astrojs/cloudflare';
 
 const SITE = 'https://new.imageleft.com';
 const BASE = process.env.BACKOFFICE_URL ?? '';
@@ -35,6 +36,7 @@ const dynamicPages = await getDynamicPages();
 export default defineConfig({
   site: SITE,
   output: 'server',
+  adapter: cloudflare({ imageService: 'passthrough' }),
   integrations: [
     mdx(),
     react(),
