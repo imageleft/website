@@ -11,7 +11,9 @@ const blog = defineCollection({
 const careers = defineCollection({
   // file loader reads a single JSON array; each entry's `id` field becomes the slug.
   loader: file('./src/content/data/careers/index.json'),
-  schema: Job.omit({ slug: true }),
+  // Omit both slug and id — the loader derives id from the entry's JSON `id` field;
+  // we re-attach both in the local adapter.
+  schema: Job.omit({ slug: true, id: true }),
 });
 
 export const collections = { blog, careers };
