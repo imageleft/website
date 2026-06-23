@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import cloudflare from '@astrojs/cloudflare';
 
-const SITE = 'https://new.imageleft.com';
+const SITE = 'https://imageleft.com';
 const BASE = process.env.BACKOFFICE_URL ?? '';
 
 /**
