@@ -14,9 +14,12 @@ import * as http from './adapters/http';
 import * as local from './adapters/local';
 import type { BlogPost, Job } from './schemas';
 
+// Use HTTP adapter only when both CONTENT_SOURCE=http AND BACKOFFICE_URL are set.
+// Falls back to local content when the back office URL is not configured (e.g. CI without the secret).
 const source = import.meta.env.CONTENT_SOURCE ?? 'local';
+const hasBackoffice = !!import.meta.env.BACKOFFICE_URL;
 
-const adapter = source === 'http' ? http : local;
+const adapter = source === 'http' && hasBackoffice ? http : local;
 
 export const getBlogPosts = (): Promise<BlogPost[]> => adapter.getBlogPosts();
 export const getBlogPost = (slug: string): Promise<BlogPost | null> => adapter.getBlogPost(slug);

@@ -1,10 +1,6 @@
 import type { BlogPost, Job } from '../schemas';
 
-const BASE = import.meta.env.BACKOFFICE_URL;
-
-if (!BASE && import.meta.env.CONTENT_SOURCE === 'http') {
-  throw new Error('BACKOFFICE_URL must be set when CONTENT_SOURCE=http');
-}
+const BASE = import.meta.env.BACKOFFICE_URL ?? '';
 
 async function api<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}/api/v1/public${path}`, {
