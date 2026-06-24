@@ -15,8 +15,9 @@ import * as local from './adapters/local';
 import type { BlogPost, Job } from './schemas';
 
 const source = import.meta.env.CONTENT_SOURCE ?? 'local';
+const hasBackoffice = !!import.meta.env.BACKOFFICE_URL;
 
-const adapter = source === 'http' ? http : local;
+const adapter = source === 'http' && hasBackoffice ? http : local;
 
 export const getBlogPosts = (): Promise<BlogPost[]> => adapter.getBlogPosts();
 export const getBlogPost = (slug: string): Promise<BlogPost | null> => adapter.getBlogPost(slug);
