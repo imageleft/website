@@ -7,7 +7,12 @@ import Heading from '../../components/primitives/Heading.astro';
 import Text from '../../components/primitives/Text.astro';
 import Button from '../../components/primitives/Button.astro';
 import PillBadge from '../../components/primitives/PillBadge.astro';
-import { getJob } from '../../content';
+import { getJobs, getJob } from '../../content';
+
+export async function getStaticPaths() {
+  const jobs = await getJobs();
+  return jobs.map((job) => ({ params: { slug: job.slug } }));
+}
 
 const { slug } = Astro.params;
 const job = await getJob(slug!);
