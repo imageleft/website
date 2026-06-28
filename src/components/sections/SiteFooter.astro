@@ -21,6 +21,13 @@ const cols = [
       { href: '/privacy', label: 'Privacy policy' },
     ],
   },
+  {
+    title: 'Resources',
+    links: [
+      { href: '/tools', label: 'Tools' },
+      { href: '/docs', label: 'Documentation' },
+    ],
+  },
 ];
 
 const contacts = [{ label: 'hello@imageleft.com', href: 'mailto:hello@imageleft.com' }];
@@ -37,7 +44,7 @@ const year = new Date().getFullYear();
 
 <footer class="bg-surface border-t border-[var(--color-border)]">
   <Container size="xl" class="py-16">
-    <div class="grid grid-cols-1 gap-10 md:grid-cols-4">
+    <div class="grid grid-cols-2 gap-10 md:grid-cols-5">
       <a href="/" aria-label="imageleft home" class="inline-flex items-center">
         <img
           src="/sections/brand/logo.svg"
