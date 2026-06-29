@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Container from '../components/primitives/Container.astro';
+import Heading from '../components/primitives/Heading.astro';
+import Text from '../components/primitives/Text.astro';
+import PillBadge from '../components/primitives/PillBadge.astro';
+
+const nav = [
+  {
+    title: 'Getting Started',
+    items: [
+      { id: 'overview', label: 'Overview' },
+      { id: 'platform', label: 'Platform' },
+      { id: 'tools', label: 'Tools' },
+    ],
+  },
+  {
+    title: 'Features',
+    items: [
+      { id: 'build', label: 'Build' },
+      { id: 'deploy', label: 'Deploy' },
+      { id: 'preview', label: 'Preview' },
+      { id: 'pricing', label: 'Pricing' },
+    ],
+  },
+  {
+    title: 'Resources',
+    items: [{ id: 'rules', label: 'Rules' }],
+  },
+];
+
+const toc = nav.flatMap((group) => group.items);
+
+const repos = [
+  {
+    name: 'Learn',
+    stack: 'FastAPI · LLMs',
+    desc: 'AI + education engine and preview.',
+  },
+  {
+    name: 'Build',
+    stack: 'Next 15',
+    desc: 'Control plane: CRM, content, founder records, and email.',
+  },
+  {
+    name: 'Ship',
+    stack: 'Fastify',
+    desc: 'A checkout experience powered by MoMo/card to stablecoin.',
+  },
+];
+---
+
+<BaseLayout
+  title="Documentation | imageleft"
+  description="How imageleft works and notes to guide you."
+>
+  <SiteHeader slot="header" />
+
+  <!-- Hero -->
+  <section class="dotted-bg relative overflow-hidden py-20 md:py-28">
+    <Container size="lg" class="relative text-center">
+      <PillBadge>Documentation</PillBadge>
+
+      <Heading level={1} size="6xl" class="mx-auto mt-6 max-w-3xl">
+        A platform to build from zero to demo.
+      </Heading>
+
+      <Text muted size="lg" class="mx-auto mt-6 max-w-xl">
+        Guides and references to help you go from idea to working preview.
+      </Text>
+
+      <div class="mt-10 flex flex-wrap justify-center gap-2">
+        {
+          toc.map((item) => (
+            <a
+              href={`#${item.id}`}
+              class="border-border bg-surface text-ink hover:bg-surface-soft rounded-full border px-4 py-2 text-sm transition-colors"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <!-- Docs body: sidebar · content · on-this-page -->
+  <Container size="xl" class="py-12 md:py-16">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[220px_minmax(0,1fr)_200px]">
+      <!-- Sidebar nav -->
+      <aside class="hidden lg:block">
+        <nav class="sticky top-24 space-y-8">
+          {
+            nav.map((group) => (
+              <div>
+                <h2 class="text-muted text-xs font-semibold tracking-widest uppercase">
+                  {group.title}
+                </h2>
+                <ul class="mt-3 space-y-1">
+                  {group.items.map((item) => (
+                    <li>
+                      <a
+                        href={`#${item.id}`}
+                        class="text-muted hover:text-ink hover:bg-surface-soft block rounded-md px-3 py-1.5 text-sm transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <main class="min-w-0 space-y-16">
+        <section id="overview" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Overview</Heading>
+          <Text muted size="lg" class="mt-4"> Build from nothing to working preview. </Text>
+          <Text class="mt-4">
+            Describe an idea and get a portable <a
+              href="#preview"
+              class="text-accent hover:underline">preview</a
+            >.
+          </Text>
+        </section>
+
+        <section id="platform" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Platform</Heading>
+          <Text muted size="lg" class="mt-4">
+            Our builder app talks to an AI engine and other services;
+          </Text>
+
+          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {
+              repos.map((repo) => (
+                <div class="border-border bg-surface rounded-xl border p-5">
+                  <div class="flex items-center justify-between gap-3">
+                    <code class="text-ink font-mono text-sm font-semibold">{repo.name}</code>
+                    <span class="text-muted text-xs">{repo.stack}</span>
+                  </div>
+                  <Text muted size="sm" class="mt-2">
+                    {repo.desc}
+                  </Text>
+                </div>
+              ))
+            }
+          </div>
+        </section>
+
+        <section id="tools" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Tools</Heading>
+          <ul class="mt-4 space-y-3">
+            <li class="border-border flex gap-3 border-b pb-3">
+              <strong class="text-ink w-28 shrink-0 text-sm">Database</strong>
+              <Text muted size="sm">One managed Postgres.</Text>
+            </li>
+            <li class="border-border flex gap-3 border-b pb-3">
+              <strong class="text-ink w-28 shrink-0 text-sm">Data Storage</strong>
+              <Text muted size="sm">Data is stored in a secure Postgres database.</Text>
+            </li>
+            <li class="border-border flex gap-3 border-b pb-3">
+              <strong class="text-ink w-28 shrink-0 text-sm">Contact</strong>
+              <Text muted size="sm">@imageleft-eng</Text>
+            </li>
+          </ul>
+        </section>
+
+        <section id="build" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Build</Heading>
+          <Text muted size="lg" class="mt-4">
+            Build once. Deploy on Web, Windows, and Android.
+          </Text>
+          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div class="border-border bg-surface rounded-xl border p-5">
+              <div class="text-ink text-sm font-semibold">Android</div>
+              <Text muted size="sm" class="mt-2">Download mobile app.</Text>
+            </div>
+            <div class="border-border bg-surface rounded-xl border p-5">
+              <div class="text-ink text-sm font-semibold">Windows</div>
+              <Text muted size="sm" class="mt-2">Download for windows.</Text>
+            </div>
+            <div class="border-border bg-surface rounded-xl border p-5">
+              <div class="text-ink text-sm font-semibold">Extension</div>
+              <Text muted size="sm" class="mt-2">Download on VSCode.</Text>
+            </div>
+          </div>
+        </section>
+
+        <section id="deploy" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Deploy</Heading>
+          <Text muted size="lg" class="mt-4">
+            Every release is tested to ensure nothing breaks.
+          </Text>
+        </section>
+        <section id="preview" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Preview</Heading>
+          <Text muted size="lg" class="mt-4">
+            Eliminate time to proof. Describe an idea and get a working preview.
+          </Text>
+
+          <div
+            class="bg-accent/8 border-border border-l-accent mt-6 flex gap-3 rounded-xl border border-l-2 p-4"
+          >
+            <Text size="sm" class="text-ink">
+              The <code class="bg-surface-soft rounded px-1.5 py-0.5 font-mono text-[0.85em]"
+                >/demo</code
+              >
+              generated link is proof.
+            </Text>
+          </div>
+
+          <Text class="mt-4">
+            A new <code
+              class="bg-surface-soft text-ink rounded px-1.5 py-0.5 font-mono text-[0.85em]"
+              >preview</code
+            > link is shared.
+          </Text>
+        </section>
+        <section id="pricing" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Pricing</Heading>
+          <Text muted size="lg" class="mt-4">
+            Every release is tested to ensure nothing breaks.
+          </Text>
+        </section>
+        <section id="rules" class="scroll-mt-24">
+          <Heading level={2} size="4xl">Rules</Heading>
+          <Text muted size="lg" class="mt-4">
+            Every release is tested to ensure nothing breaks.
+          </Text>
+        </section>
+      </main>
+
+      <!-- On this page -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24">
+          <h2 class="text-muted text-xs font-semibold tracking-widest uppercase">On this page</h2>
+          <ul class="border-border mt-3 space-y-1 border-l">
+            {
+              toc.map((item) => (
+                <li>
+                  <a
+                    href={`#${item.id}`}
+                    class="text-muted hover:text-ink -ml-px block border-l border-transparent py-1 pl-3 text-sm transition-colors hover:border-[var(--color-accent)]"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </Container>
+
+  <SiteFooter slot="footer" />
+</BaseLayout>
