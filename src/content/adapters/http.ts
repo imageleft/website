@@ -1,5 +1,3 @@
-
-
 /**
  * HTTP content adapter — placeholder for v2.
  *
@@ -61,7 +59,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       slug: p.slug,
       title: p.title,
       excerpt: p.excerpt ?? '',
-      content: p.content ,
+      content: p.content,
       publishedAt: p.publishedAt ? new Date(p.publishedAt) : null,
       author: {
         name: p.author?.names ?? 'Unknown',
