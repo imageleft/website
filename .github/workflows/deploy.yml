@@ -32,6 +32,8 @@ jobs:
       - uses: actions/configure-pages@v5
 
       - run: pnpm build
+        env:
+          BACKOFFICE_URL: ${{ secrets.BACKOFFICE_URL }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

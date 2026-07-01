@@ -24,12 +24,13 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 
 export async function getJobs(): Promise<Job[]> {
   const entries = await getCollection('careers');
-  const jobs = entries.map((e) => ({ ...e.data, slug: e.id }));
+  // local id = slug for filesystem content; no separate DB id in local mode
+  const jobs = entries.map((e) => ({ ...e.data, id: e.id, slug: e.id }));
   return jobs.sort((a, b) => b.postedAt.getTime() - a.postedAt.getTime());
 }
 
 export async function getJob(slug: string): Promise<Job | null> {
   const entry = await getEntry('careers', slug);
   if (!entry) return null;
-  return { ...entry.data, slug: entry.id };
+  return { ...entry.data, id: entry.id, slug: entry.id };
 }

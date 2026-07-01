@@ -5,26 +5,50 @@ import Text from '../primitives/Text.astro';
 import PillBadge from '../primitives/PillBadge.astro';
 import Icon from '../primitives/Icon.astro';
 
-const stories = [
+// Fetch from the Back Office public API when CONTENT_SOURCE=http; fall back to
+// hardcoded stories so the page always renders even if the API is unreachable.
+const FALLBACK = [
   {
-    quote:
-      'We translated a complex payments idea into a real platform. From product brief to launch in 14 weeks.',
+    quote: 'We translated a complex payments idea into a real platform. From product brief to launch in 14 weeks.',
     author: 'Bibi Gabriel',
     role: 'Founder, Fintech Startup',
   },
   {
-    quote:
-      'A clinical-records platform built with care. Compliance, audit trails, and a UI that nurses actually want to use.',
+    quote: 'A clinical-records platform built with care. Compliance, audit trails, and a UI that nurses actually want to use.',
     author: 'Adaeze Okafor',
     role: 'Founder, HealthTech',
   },
   {
-    quote:
-      'They challenged our scope and got us to launch fast. Pushed back on a third of our spec. That saved us months.',
+    quote: 'They challenged our scope and got us to launch fast. Pushed back on a third of our spec. That saved us months.',
     author: 'Tom Reyes',
     role: 'Founder, B2B SaaS',
   },
 ];
+
+type Testimonial = { quote: string; author: string; role: string };
+
+async function fetchTestimonials(): Promise<Testimonial[]> {
+  const base = import.meta.env.BACKOFFICE_URL;
+  if (!base || import.meta.env.CONTENT_SOURCE !== 'http') return FALLBACK;
+  try {
+    const res = await fetch(`${base}/api/v1/public/testimonials`, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 60 },
+    } as RequestInit);
+    if (!res.ok) return FALLBACK;
+    const data = await res.json() as { testimonials: Array<{ content: string; name: string; role?: string; company?: string }> };
+    if (!data.testimonials?.length) return FALLBACK;
+    return data.testimonials.map((t) => ({
+      quote: t.content,
+      author: t.name,
+      role: [t.role, t.company].filter(Boolean).join(', '),
+    }));
+  } catch {
+    return FALLBACK;
+  }
+}
+
+const stories = await fetchTestimonials();
 ---
 
 <section class="py-24">

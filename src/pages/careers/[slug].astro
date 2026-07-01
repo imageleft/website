@@ -7,27 +7,25 @@ import Heading from '../../components/primitives/Heading.astro';
 import Text from '../../components/primitives/Text.astro';
 import Button from '../../components/primitives/Button.astro';
 import PillBadge from '../../components/primitives/PillBadge.astro';
-import { getJobs } from '../../content';
-import type { Job } from '../../content/schemas';
+import { getJobs, getJob } from '../../content';
 
 export async function getStaticPaths() {
   const jobs = await getJobs();
-  return jobs.map((job) => ({
-    params: { slug: job.slug },
-    props: { job },
-  }));
+  return jobs.map((job) => ({ params: { slug: job.slug } }));
 }
 
-interface Props {
-  job: Job;
-}
-const { job } = Astro.props;
+const { slug } = Astro.params;
+const job = await getJob(slug!);
+if (!job) return Astro.redirect('/careers');
 
 const formattedDate = job.postedAt.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
+// job.id is the Back Office DB id — required by the applications API.
+const jobId = job.id;
+const applicationsUrl = `${import.meta.env.BACKOFFICE_URL ?? ''}/api/v1/public/applications`;
 ---
 
 <BaseLayout
@@ -59,18 +57,130 @@ const formattedDate = job.postedAt.toLocaleDateString('en-US', {
         <p>{job.description}</p>
       </div>
 
-      <div class="border-border flex flex-wrap items-center gap-3 border-t pt-8">
-        <Button
-          href={`mailto:hello@imageleft.com?subject=Application: ${encodeURIComponent(job.title)}`}
-          variant="accent"
-          size="lg"
+      <div class="border-border border-t pt-8">
+        <h2 class="text-ink mb-6 text-xl font-semibold">Apply for this role</h2>
+
+        <form
+          id="apply-form"
+          data-job-id={jobId}
+          data-api-url={applicationsUrl}
+          class="grid grid-cols-1 gap-5 sm:grid-cols-2"
+          novalidate
         >
-          Apply for this role
-        </Button>
-        <Button href="/careers" variant="outline">Back to all roles</Button>
+          <label class="block">
+            <span class="text-ink block text-sm font-medium">First name <span class="text-red-500">*</span></span>
+            <input name="firstName" type="text" required class="input-field mt-1.5" />
+          </label>
+          <label class="block">
+            <span class="text-ink block text-sm font-medium">Last name</span>
+            <input name="lastName" type="text" class="input-field mt-1.5" />
+          </label>
+          <label class="block">
+            <span class="text-ink block text-sm font-medium">Email <span class="text-red-500">*</span></span>
+            <input name="email" type="email" required class="input-field mt-1.5" />
+          </label>
+          <label class="block">
+            <span class="text-ink block text-sm font-medium">Phone</span>
+            <input name="phone" type="tel" class="input-field mt-1.5" />
+          </label>
+          <label class="block sm:col-span-2">
+            <span class="text-ink block text-sm font-medium">LinkedIn URL</span>
+            <input name="linkedIn" type="url" placeholder="https://linkedin.com/in/…" class="input-field mt-1.5" />
+          </label>
+          <label class="block sm:col-span-2">
+            <span class="text-ink block text-sm font-medium">Résumé <span class="text-red-500">*</span></span>
+            <input name="resume" type="file" accept=".pdf,.doc,.docx" required
+              class="mt-1.5 block w-full text-sm text-muted file:mr-3 file:rounded-md file:border file:border-border file:bg-surface-soft file:px-3 file:py-1.5 file:text-sm file:font-medium" />
+            <span class="mt-1 block text-xs text-muted">PDF, DOC, or DOCX · max 5 MB</span>
+          </label>
+          <label class="block sm:col-span-2">
+            <span class="text-ink block text-sm font-medium">Cover letter (optional)</span>
+            <textarea name="coverLetterText" rows="5" placeholder="Tell us why you're a great fit…"
+              class="input-field mt-1.5"></textarea>
+          </label>
+
+          {/* Honeypot — must stay empty */}
+          <input name="company_url" type="text" class="hidden" tabindex="-1" autocomplete="off" />
+
+          <div class="flex flex-wrap items-center gap-3 sm:col-span-2">
+            <Button type="submit" variant="accent" size="lg">Submit application</Button>
+            <Button href="/careers" variant="outline">Back to all roles</Button>
+          </div>
+          <p id="apply-status" class="hidden sm:col-span-2 text-sm" aria-live="polite"></p>
+        </form>
       </div>
     </Container>
   </article>
 
   <SiteFooter slot="footer" />
 </BaseLayout>
+
+<style>
+  .input-field {
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 0.625rem 1rem;
+    font-size: 1rem;
+    color: var(--color-ink);
+    transition: border-color 150ms;
+  }
+  .input-field:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+  .input-field::placeholder {
+    color: var(--color-muted);
+  }
+</style>
+
+<script>
+  const form = document.getElementById('apply-form') as HTMLFormElement | null;
+  const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const statusEl = document.getElementById('apply-status');
+
+  function setStatus(msg: string, isError = false) {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = isError
+      ? 'block text-sm text-red-600 sm:col-span-2'
+      : 'block text-sm text-green-700 sm:col-span-2';
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form) return;
+
+    const fd = new FormData(form);
+    fd.set('jobId', form.dataset.jobId ?? '');
+    fd.set('company_url', ''); // honeypot
+
+    if (submitBtn) submitBtn.disabled = true;
+
+    try {
+      const apiUrl = form.dataset.apiUrl ?? '/api/v1/public/applications';
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        body: fd,
+        // No Content-Type header — browser sets it with the correct multipart boundary
+      });
+
+      if (res.ok || res.status === 201) {
+        setStatus('Application submitted! We\'ll be in touch soon.');
+        form.reset();
+      } else if (res.status === 429) {
+        setStatus('Too many submissions — please try again later.', true);
+      } else if (res.status === 409) {
+        setStatus('You\'ve already applied for this role.', true);
+      } else {
+        const body = await res.json().catch(() => ({})) as { error?: string };
+        setStatus(body.error ?? 'Something went wrong. Please try again.', true);
+      }
+    } catch {
+      setStatus('Could not submit — check your connection and try again.', true);
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+</script>

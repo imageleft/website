@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { marked } from 'marked';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/sections/SiteHeader.astro';
 import SiteFooter from '../../components/sections/SiteFooter.astro';
@@ -8,19 +8,24 @@ import Heading from '../../components/primitives/Heading.astro';
 import Text from '../../components/primitives/Text.astro';
 import PillBadge from '../../components/primitives/PillBadge.astro';
 import Button from '../../components/primitives/Button.astro';
+import { getBlogPosts, getBlogPost } from '../../content';
+
+const FALLBACK_COVER = '/og/blog.png';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('blog');
-  return entries.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  const posts = await getBlogPosts();
+  return posts.map((post) => ({ params: { slug: post.slug } }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { slug } = Astro.params;
+const post = await getBlogPost(slug!);
 
-const formattedDate = entry.data.publishedAt.toLocaleDateString('en-US', {
+if (!post) return Astro.redirect('/blog');
+
+const coverImage = post.coverImage || FALLBACK_COVER;
+const htmlBody = post.body ? await marked.parse(post.body) : null;
+
+const formattedDate = post.publishedAt.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -28,33 +33,36 @@ const formattedDate = entry.data.publishedAt.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout
-  title={`${entry.data.title} | imageleft`}
-  description={entry.data.excerpt}
-  ogImage="/og/blog.png"
+  title={`${post.title} | imageleft`}
+  description={post.excerpt}
+  ogImage={coverImage}
 >
   <SiteHeader slot="header" />
 
   <article class="py-16">
     <Container size="md">
       <div class="space-y-4 text-center">
-        {entry.data.tags.length > 0 && <PillBadge>{entry.data.tags[0]}</PillBadge>}
-        <Heading level={1} size="6xl" class="mx-auto max-w-3xl">{entry.data.title}</Heading>
-        <Text muted class="mx-auto max-w-xl">{entry.data.excerpt}</Text>
+        {post.tags.length > 0 && <PillBadge>{post.tags[0]}</PillBadge>}
+        <Heading level={1} size="6xl" class="mx-auto max-w-3xl">{post.title}</Heading>
+        <Text muted class="mx-auto max-w-xl">{post.excerpt}</Text>
         <div class="flex items-center justify-center gap-3">
-          <Text size="sm" muted>By {entry.data.author.name}</Text>
+          <Text size="sm" muted>By {post.author.name}</Text>
           <span class="text-muted text-sm" aria-hidden="true">·</span>
           <Text size="sm" muted>{formattedDate}</Text>
         </div>
       </div>
 
       <img
-        src={entry.data.coverImage}
-        alt={entry.data.title}
+        src={coverImage}
+        alt={post.title}
         class="border-border mx-auto mt-12 aspect-[16/9] w-full max-w-3xl rounded-[var(--radius-lg)] border object-cover"
       />
 
       <div class="article-body mx-auto mt-12 max-w-2xl">
-        <Content />
+        {htmlBody
+          ? <Fragment set:html={htmlBody} />
+          : <Text muted>No content available.</Text>
+        }
       </div>
 
       <div class="mt-16 flex justify-center">
