@@ -14,7 +14,8 @@ type UIIcon =
   | 'command'
   | 'plus'
   | 'minus'
-  | 'quote';
+  | 'quote'
+  | 'video';
 
 type BrandIcon =
   | 'stripe'
@@ -22,10 +23,14 @@ type BrandIcon =
   | 'mpesa'
   | 'github'
   | 'instagram'
+  | 'x'
   | 'facebook'
   | 'linkedin'
   | 'whatsapp'
-  | 'google-meet';
+  | 'google-meet'
+  | 'windows'
+  | 'android'
+  | 'vscode';
 
 export type IconName = UIIcon | BrandIcon;
 
@@ -249,6 +254,26 @@ const titled = ariaLabel !== undefined;
   )
 }
 {
+  name === 'video' && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class:list={[className]}
+      aria-hidden="true"
+    >
+      <rect x="3" y="6" width="13" height="12" rx="2" />
+      <path d="m16 10 5-3v10l-5-3" />
+    </svg>
+  )
+}
+{
   name === 'stripe' && (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -344,6 +369,28 @@ const titled = ariaLabel !== undefined;
   )
 }
 {
+  name === 'x' && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={brandUseCurrent ? 'currentColor' : '#000000'}
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class:list={[className]}
+      role={titled ? 'img' : 'presentation'}
+      aria-hidden={titled ? undefined : 'true'}
+      aria-label={ariaLabel ?? 'X'}
+    >
+      <path d="M18 5 6 19" />
+      <path d="m6 5 12 14" />
+    </svg>
+  )
+}
+{
   name === 'facebook' && (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -408,6 +455,57 @@ const titled = ariaLabel !== undefined;
       aria-label={ariaLabel ?? 'Google Meet'}
     >
       <path d="M5.53 2.13 0 7.75h5.53zm.398 0v5.62h7.608v3.65l5.47-4.45c-.014-1.22.031-2.25-.025-3.46-.148-1.09-1.287-1.47-2.236-1.36zM23.1 4.32c-.802.295-1.358.995-2.047 1.49-2.506 2.05-4.982 4.12-7.468 6.19 3.025 2.59 6.04 5.18 9.065 7.76 1.218.671 1.428-.814 1.328-1.64v-13a.828.828 0 0 0-.877-.825zM.038 8.15v7.7h5.53v-7.7zm13.577 8.1H6.008v5.62c3.864-.006 7.737.011 11.58-.009 1.02-.07 1.618-1.12 1.468-2.07v-2.51l-5.47-4.68v3.65zm-13.577 0c.02 1.44-.041 2.88.033 4.31.162.948 1.158 1.43 2.047 1.31h3.464v-5.62z" />
+    </svg>
+  )
+}
+{
+  name === 'windows' && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={brandUseCurrent ? 'currentColor' : '#0078D4'}
+      class:list={[className]}
+      role={titled ? 'img' : 'presentation'}
+      aria-hidden={titled ? undefined : 'true'}
+      aria-label={ariaLabel ?? 'Windows'}
+    >
+      <path d="M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699m10.949-8.099H24V24l-13.051-1.851" />
+    </svg>
+  )
+}
+{
+  name === 'android' && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={brandUseCurrent ? 'currentColor' : '#3DDC84'}
+      class:list={[className]}
+      role={titled ? 'img' : 'presentation'}
+      aria-hidden={titled ? undefined : 'true'}
+      aria-label={ariaLabel ?? 'Android'}
+    >
+      <path d="M17.523 15.341c-.551 0-.999-.448-.999-.999s.448-.999.999-.999.999.448.999.999-.448.999-.999.999m-11.046 0c-.551 0-.999-.448-.999-.999s.448-.999.999-.999.999.448.999.999-.448.999-.999.999m11.405-6.02 1.997-3.459a.416.416 0 0 0-.152-.568.416.416 0 0 0-.568.152l-2.022 3.503C15.59 8.244 13.853 7.851 12 7.851s-3.59.393-5.137 1.099L4.841 5.447a.416.416 0 0 0-.568-.152.416.416 0 0 0-.152.568l1.997 3.459C2.689 11.187.343 14.659 0 18.761h24c-.343-4.102-2.689-7.574-6.118-9.44" />
+    </svg>
+  )
+}
+{
+  name === 'vscode' && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={brandUseCurrent ? 'currentColor' : '#007ACC'}
+      class:list={[className]}
+      role={titled ? 'img' : 'presentation'}
+      aria-hidden={titled ? undefined : 'true'}
+      aria-label={ariaLabel ?? 'VS Code'}
+    >
+      <path d="M23.15 2.587 18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448z" />
     </svg>
   )
 }

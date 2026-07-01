@@ -1,0 +1,113 @@
+---
+interface Props {
+  commands: string[];
+  class?: string;
+}
+
+const { commands, class: className = '' } = Astro.props;
+const copyValue = commands.join('\n');
+---
+
+<div
+  class:list={['border-border bg-surface rounded-xl border p-4 font-mono text-sm', className]}
+  data-copy-command
+  data-copy-value={copyValue}
+>
+  <div class="mb-3 flex items-center justify-between gap-3">
+    <span class="text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">CLI</span>
+    <button
+      type="button"
+      data-copy-btn
+      onclick="window.copyCommand?.(this)"
+      class="copy-btn text-muted hover:text-ink inline-flex items-center gap-1.5 rounded-full border border-transparent px-2.5 py-1 text-xs font-medium transition-all duration-200 ease-out"
+      aria-live="polite"
+    >
+      <span class="copy-btn__icon" aria-hidden="true">⧉</span>
+      <span class="copy-btn__label">Copy</span>
+    </button>
+  </div>
+  <div class="space-y-1">
+    {
+      commands.map((command) => (
+        <div>
+          <span class="text-muted select-none">$ </span>
+          <span class="text-ink">{command}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script is:inline>
+  window.copyCommand = async function copyCommand(button) {
+    const block = button?.closest('[data-copy-command]');
+    const copyValue = block?.getAttribute('data-copy-value') ?? '';
+    const label = button?.querySelector('.copy-btn__label');
+    const icon = button?.querySelector('.copy-btn__icon');
+    const previousLabel = label?.textContent ?? 'Copy';
+
+    if (!button || !copyValue) return;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(copyValue);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = copyValue;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+
+      button.classList.add('is-copied');
+      button.setAttribute('aria-pressed', 'true');
+      if (label) label.textContent = 'Copied';
+      if (icon) icon.textContent = '✓';
+
+      window.setTimeout(() => {
+        button.classList.remove('is-copied');
+        button.setAttribute('aria-pressed', 'false');
+        if (label) label.textContent = previousLabel;
+        if (icon) icon.textContent = '⧉';
+      }, 1600);
+    } catch {
+      button.classList.add('is-copied');
+      if (label) label.textContent = 'Failed';
+      if (icon) icon.textContent = '✕';
+
+      window.setTimeout(() => {
+        button.classList.remove('is-copied');
+        if (label) label.textContent = previousLabel;
+        if (icon) icon.textContent = '⧉';
+      }, 1600);
+    }
+  };
+</script>
+
+<style>
+  .copy-btn {
+    transform-origin: center;
+  }
+
+  .copy-btn.is-copied {
+    color: var(--color-ink);
+    background-color: var(--color-surface-soft);
+    border-color: var(--color-border);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .copy-btn__icon {
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease;
+  }
+
+  .copy-btn.is-copied .copy-btn__icon {
+    transform: scale(1.1);
+  }
+</style>

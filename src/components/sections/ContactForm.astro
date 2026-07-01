@@ -5,11 +5,7 @@ import Text from '../primitives/Text.astro';
 import Button from '../primitives/Button.astro';
 import PillBadge from '../primitives/PillBadge.astro';
 
-interface Props {
-  /** Email recipient. Confirm before launch. */
-  to?: string;
-}
-const { to = 'hello@imageleft.com' }: Props = Astro.props;
+const apiBase = import.meta.env.BACKOFFICE_URL ?? '';
 
 const inputClass =
   'mt-1.5 w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-surface px-4 py-2.5 text-base text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors';
@@ -26,24 +22,12 @@ const inputClass =
       </Text>
     </div>
 
-    {
-      /*
-      Form notes:
-        - With JS, a small inline script (below) intercepts submit, builds a nicely-formatted
-          mailto URL with `subject` and `body` query params, and opens the user's mail client.
-        - Without JS, the form falls back to the native mailto+text/plain submission.
-          Less pretty, but it still works.
-        - `data-mailto-form` is the hook the script uses. `data-to` carries the recipient.
-    */
-    }
+    {/* data-contact-form is the hook used by the inline script to attach the submit listener. */}
     <form
-      data-mailto-form
-      data-to={to}
-      action={`mailto:${to}`}
-      method="post"
-      enctype="text/plain"
-      target="_blank"
+      data-contact-form
+      data-api-url={`${apiBase}/api/v1/public/leads`}
       class="mx-auto mt-12 grid max-w-xl grid-cols-1 gap-5"
+      novalidate
     >
       <label class="block">
         <span class="text-ink block text-sm font-medium">Name</span>
@@ -84,51 +68,66 @@ const inputClass =
 
       <Button type="submit" variant="accent" size="lg" class="w-full">Send message</Button>
 
-      <Text size="sm" muted class="text-center">
-        Submitting opens your mail client with a draft pre-filled.
-      </Text>
+      <p id="contact-status" class="hidden text-center text-sm" aria-live="polite"></p>
     </form>
   </Container>
 </section>
 
 <script>
-  // Progressive enhancement: replace the native text/plain submission with a properly-
-  // formatted mailto URL whose `subject` and `body` are URL-encoded.
-  type FormFields = { name: string; email: string; subject: string; message: string };
+  const form = document.querySelector<HTMLFormElement>('form[data-contact-form]');
+  const LEADS_URL = form?.dataset.apiUrl ?? '/api/v1/public/leads';
+  const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const statusEl = document.getElementById('contact-status');
 
-  document.querySelectorAll<HTMLFormElement>('form[data-mailto-form]').forEach((form) => {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
+  function setStatus(msg: string, isError = false) {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = isError
+      ? 'block text-center text-sm text-red-600'
+      : 'block text-center text-sm text-green-700';
+  }
 
-      const data = new FormData(form);
-      const fields: FormFields = {
-        name: String(data.get('name') ?? '').trim(),
-        email: String(data.get('email') ?? '').trim(),
-        subject: String(data.get('subject') ?? '').trim(),
-        message: String(data.get('message') ?? '').trim(),
-      };
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form) return;
 
-      const to = form.dataset.to ?? 'hello@imageleft.com';
-      const subject = fields.subject || 'Hello from imageleft.com';
-      const body = [
-        'Hi imageleft team,',
-        '',
-        fields.message,
-        '',
-        '—',
-        `From: ${fields.name}`,
-        `Reply-to: ${fields.email}`,
-        '',
-        'Sent from the imageleft.com contact form.',
-      ].join('\n');
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    const message = String(data.get('message') ?? '').trim();
 
-      const mailtoUrl = `mailto:${to}?subject=${encodeURIComponent(
-        subject,
-      )}&body=${encodeURIComponent(body)}`;
+    // Split name into firstName / lastName (best-effort)
+    const [firstName, ...rest] = name.split(' ');
+    const lastName = rest.join(' ') || undefined;
 
-      // Use location.href so the mail client opens reliably across browsers; the
-      // opened tab (target="_blank" on the form) is a no-op since we cancelled submit.
-      window.location.href = mailtoUrl;
-    });
+    if (submitBtn) submitBtn.setAttribute('disabled', '');
+
+    try {
+      const res = await fetch(LEADS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'CONTACT',
+          firstName,
+          lastName,
+          email,
+          message,
+          company_url: '', // honeypot — must be empty
+        }),
+      });
+
+      if (res.ok || res.status === 201) {
+        setStatus('Message sent! We\'ll get back to you within 24 hours.');
+        form.reset();
+      } else if (res.status === 429) {
+        setStatus('Too many requests — please try again in a minute.', true);
+      } else {
+        setStatus('Something went wrong. Please email us directly at hello@imageleft.com.', true);
+      }
+    } catch {
+      setStatus('Could not send — check your connection and try again.', true);
+    } finally {
+      if (submitBtn) submitBtn.removeAttribute('disabled');
+    }
   });
 </script>

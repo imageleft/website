@@ -35,3 +35,8 @@ docs/figma-tokens.md
 
 # Figma frame renders (cached PNGs from MCP — used during design extraction)
 .figma-cache/
+.wrangler/
+.history/
+package-lock.json
+TO-DO-*
+.claude/*

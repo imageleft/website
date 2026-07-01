@@ -38,8 +38,59 @@ const nav = [
       }
     </ul>
 
+    <a
+      href="/contact"
+      class="start-building hidden items-center gap-2.5 rounded-full bg-ink-strong py-2 pl-2 pr-5 text-sm font-medium text-surface transition-colors hover:opacity-95 focus-visible:outline-2 focus-visible:outline-offset-2 md:inline-flex"
+    >
+      <span class="start-building__icon relative inline-grid h-7 w-7 place-items-center">
+        <svg class="start-building__ring col-start-1 row-start-1 h-7 w-7 -rotate-90" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle class="start-building__track" cx="14" cy="14" r="11" stroke-width="1.5" />
+          <circle class="start-building__progress" cx="14" cy="14" r="11" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <svg class="start-building__arrow col-start-1 row-start-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="19" x2="12" y2="5" />
+          <polyline points="6 11 12 5 18 11" />
+        </svg>
+      </span>
+      Start building
+    </a>
+
     <div class="md:hidden">
       <MobileNav client:load nav={nav} />
     </div>
   </Container>
 </header>
+
+<style>
+  .start-building__track {
+    stroke: rgba(252, 252, 252, 0.25);
+  }
+
+  .start-building__progress {
+    stroke: var(--color-surface);
+    stroke-dasharray: 69.115; /* 2π × 11 */
+    stroke-dashoffset: 69.115;
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .start-building__arrow {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .start-building:hover .start-building__progress,
+  .start-building:focus-visible .start-building__progress {
+    stroke-dashoffset: 0;
+  }
+
+  .start-building:hover .start-building__arrow,
+  .start-building:focus-visible .start-building__arrow {
+    transform: translateY(-1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .start-building__progress,
+    .start-building__arrow {
+      transition: none;
+    }
+  }
+</style>

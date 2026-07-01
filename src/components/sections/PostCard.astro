@@ -8,6 +8,9 @@ interface Props {
 }
 const { post }: Props = Astro.props;
 
+const FALLBACK_COVER = '/og/blog.png';
+const coverImage = post.coverImage || FALLBACK_COVER;
+
 const formattedDate = post.publishedAt.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
