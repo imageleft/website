@@ -1,9 +1,9 @@
+import { defineConfig } from 'astro/config';
 // @ts-check
 import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
 
 const SITE = 'https://imageleft.com';
 const BASE = process.env.BACKOFFICE_URL ?? '';
@@ -23,7 +23,9 @@ async function getDynamicPages() {
     const { jobs = [] } = jobsRes.ok ? await jobsRes.json() : {};
     return [
       ...posts.map((/** @type {{slug:string}} */ p) => `${SITE}/blog/${p.slug}/`),
-      ...jobs.map((/** @type {{slug?:string,id:string}} */ j) => `${SITE}/careers/${j.slug ?? j.id}/`),
+      ...jobs.map(
+        (/** @type {{slug?:string,id:string}} */ j) => `${SITE}/careers/${j.slug ?? j.id}/`,
+      ),
     ];
   } catch {
     return [];
@@ -47,6 +49,6 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [/** @type {any} */ (tailwindcss())],
   },
 });

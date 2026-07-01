@@ -8,6 +8,7 @@ import Text from '../components/primitives/Text.astro';
 import PillBadge from '../components/primitives/PillBadge.astro';
 import Icon from '../components/primitives/Icon.astro';
 import IconSquare from '../components/primitives/IconSquare.astro';
+import CopyCommand from '../components/primitives/CopyCommand.astro';
 import type { IconName } from '../components/primitives/Icon.astro';
 
 type NavItem = { id: string; label: string; icon: IconName };
@@ -19,6 +20,7 @@ const nav: { title: string; items: NavItem[] }[] = [
       { id: 'overview', label: 'Overview', icon: 'compass' },
       { id: 'platform', label: 'Platform', icon: 'command' },
       { id: 'tools', label: 'Tools', icon: 'database' },
+      { id: 'cli', label: 'CLI', icon: 'command' },
     ],
   },
   {
@@ -49,13 +51,13 @@ const repos: { name: string; icon: IconName; href: string; desc: string }[] = [
     name: 'Build',
     icon: 'command',
     href: '#pricing',
-    desc: 'Describe an idea in natural language and get a real app.',
+    desc: 'Describe idea in natural language and get a real app.',
   },
   {
     name: 'Ship',
     icon: 'rocket',
     href: '#pricing',
-    desc: 'Take payments and go live. MoMo or card or crypto.',
+    desc: 'Take payments(MoMo or card or crypto) and go live.',
   },
 ];
 ---
@@ -72,7 +74,7 @@ const repos: { name: string; icon: IconName; href: string; desc: string }[] = [
       <PillBadge>Documentation</PillBadge>
 
       <Heading level={1} size="6xl" class="mx-auto mt-6 max-w-3xl">
-        A platform to build from zero to demo.
+        A platform to build from zero to live preview.
       </Heading>
 
       <Text muted size="lg" class="mx-auto mt-6 max-w-xl">
@@ -143,7 +145,7 @@ const repos: { name: string; icon: IconName; href: string; desc: string }[] = [
         <section id="platform" class="scroll-mt-24">
           <Heading level={2} size="4xl">Platform</Heading>
           <Text muted size="lg" class="mt-4">
-            Go from idea to launch, learn, build, and ship.
+            Go from idea to launch. Learn, build, and ship.
           </Text>
 
           <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -194,62 +196,8 @@ const repos: { name: string; icon: IconName; href: string; desc: string }[] = [
         <section id="build" class="scroll-mt-24">
           <Heading level={2} size="4xl">Build</Heading>
           <Text muted size="lg" class="mt-4">
-            Build once, run everywhere. One codebase is a web, Windows, and Android app. Get an
-            editor extension for building in place.
+            Build once, run everywhere. One codebase is a web, Windows, and Android app.
           </Text>
-          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <a
-              href="#"
-              class="group border-border bg-surface hover:border-ink/25 hover:bg-surface-soft block rounded-xl border p-5 transition-colors"
-            >
-              <div class="flex items-center justify-between">
-                <IconSquare variant="light" size="size-12">
-                  <Icon name="android" size={26} ariaLabel="Android" />
-                </IconSquare>
-                <Icon
-                  name="arrow-right"
-                  size={18}
-                  class="text-muted group-hover:text-ink transition-colors"
-                />
-              </div>
-              <div class="text-ink mt-4 text-sm font-semibold">Android</div>
-              <Text muted size="sm" class="mt-1">Get mobile app.</Text>
-            </a>
-            <a
-              href="#"
-              class="group border-border bg-surface hover:border-ink/25 hover:bg-surface-soft block rounded-xl border p-5 transition-colors"
-            >
-              <div class="flex items-center justify-between">
-                <IconSquare variant="light" size="size-12">
-                  <Icon name="windows" size={26} ariaLabel="Windows" />
-                </IconSquare>
-                <Icon
-                  name="arrow-right"
-                  size={18}
-                  class="text-muted group-hover:text-ink transition-colors"
-                />
-              </div>
-              <div class="text-ink mt-4 text-sm font-semibold">Windows</div>
-              <Text muted size="sm" class="mt-1">Download desktop app.</Text>
-            </a>
-            <a
-              href="#"
-              class="group border-border bg-surface hover:border-ink/25 hover:bg-surface-soft block rounded-xl border p-5 transition-colors"
-            >
-              <div class="flex items-center justify-between">
-                <IconSquare variant="light" size="size-12">
-                  <Icon name="vscode" size={26} ariaLabel="VS Code" />
-                </IconSquare>
-                <Icon
-                  name="arrow-right"
-                  size={18}
-                  class="text-muted group-hover:text-ink transition-colors"
-                />
-              </div>
-              <div class="text-ink mt-4 text-sm font-semibold">Extension</div>
-              <Text muted size="sm" class="mt-1">Build right inside VSCode.</Text>
-            </a>
-          </div>
         </section>
 
         <section id="deploy" class="scroll-mt-24">
@@ -272,8 +220,8 @@ const repos: { name: string; icon: IconName; href: string; desc: string }[] = [
             class="bg-accent/8 border-border border-l-accent mt-6 flex gap-3 rounded-xl border border-l-2 p-4"
           >
             <Text size="sm" class="text-ink">
-              Every preview ships with a shareable <code
-                class="bg-surface-soft rounded px-1.5 py-0.5 font-mono text-[0.85em]">/demo</code
+              Every project ships with a shareable <code
+                class="bg-surface-soft rounded px-1.5 py-0.5 font-mono text-[0.85em]">preview</code
               >.
             </Text>
           </div>
@@ -283,20 +231,17 @@ const repos: { name: string; icon: IconName; href: string; desc: string }[] = [
         <section id="pricing" class="scroll-mt-24">
           <Heading level={2} size="4xl">Pricing</Heading>
           <Text muted size="lg" class="mt-4">
-            One price: Build and preview for free. Pay to make the project yours.
+            Build and get preview for free. Pay to own the project.
           </Text>
 
-          <div class="border-border bg-surface mt-6 flex items-center gap-5 rounded-xl border p-6">
+          <div class="mt-6 flex items-center gap-5 rounded-xl">
             <div class="shrink-0">
-              <div class="text-ink text-4xl font-semibold">USD 20</div>
-              <div class="text-muted text-xs">one-time</div>
-            </div>
-            <div class="border-border border-l pl-5">
-              <Text size="sm" class="text-ink font-medium">Own project</Text>
-              <Text muted size="sm" class="mt-1">
-                Unlocks export, payments, and the Windows and Android apps. Pay with Mobile Money,
-                card or crypto.????
-              </Text>
+              <div class="text-ink text-md">
+                Visit our <a href="/pricing" target="#" class="text-accent hover:underline"
+                  >pricing</a
+                > page for price breakdown
+              </div>
+              <div class="text-muted text-xs"></div>
             </div>
           </div>
         </section>
