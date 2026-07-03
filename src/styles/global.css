@@ -26,7 +26,6 @@ body {
   padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
 }
-
 /*
  * Dotted background pattern used behind hero / SystemsWeBuild / BusinessInABox.
  * Matches Figma's 16px-grid dot field. Designed to layer behind content (z-index: 0).

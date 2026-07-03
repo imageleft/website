@@ -3,7 +3,7 @@
  *
  * Pages and sections call ONLY through this module — never directly into
  * `astro:content` or any specific adapter. That gives us a single seam to
- * swap from local (filesystem MDX/JSON) to HTTP (api.imageleft.com) without
+ * swap from local (filesystem MDX/JSON) to HTTP (app.imageleft.com) without
  * touching consumer code.
  *
  * Source selected at build time via `CONTENT_SOURCE` env var. `local` is the
