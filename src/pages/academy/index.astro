@@ -106,7 +106,7 @@ const programs = [
       <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         {
           features.map((feature) => (
-            <div class="bg-surface shadow-[0_0_16px_0_rgba(0,0,0,0.08)]rounded-[var(--radius-xl)] border border-[var(--color-border)] p-8 transition-all hover:-translate-y-1">
+            <div class="bg-surface shadow-soft rounded-xl border border-[var(--color-border)] p-8 transition-all hover:-translate-y-1">
               <Heading level={3} size="xl">
                 {feature.title}
               </Heading>
@@ -136,7 +136,7 @@ const programs = [
       <ul class="mx-auto mt-16 max-w-2xl space-y-3">
         {
           tracks.map((track) => (
-            <li class="bg-background shadow-[0_0_16px_0_rgba(0,0,0,0.08)]flex items-center justify-between rounded-[var(--radius-xl)] border border-[var(--color-border)] px-6 py-5">
+            <li class="bg-background shadow-soft flex items-center justify-between rounded-xl border border-[var(--color-border)] px-6 py-5">
               <span class="font-medium">{track}</span>
               <button class="text-accent ml-4 shrink-0 text-sm font-medium transition-opacity hover:opacity-70">
                 Paths →
@@ -164,7 +164,7 @@ const programs = [
         <!-- FREE -->
 
         <div
-          class="bg-surface shadow-[0_0_16px_0_rgba(0,0,0,0.08)]rounded-[var(--radius-2xl)] border border-[var(--color-border)] p-10"
+          class="bg-surface shadow-soft rounded-2xl border border-[var(--color-border)] p-10"
         >
           <Text muted>Free</Text>
 
@@ -184,7 +184,7 @@ const programs = [
 
         <!-- PREMIUM -->
 
-        <div class="bg-ink overflow-hidden rounded-[var(--radius-2xl)] text-white">
+        <div class="bg-ink overflow-hidden rounded-2xl text-white">
           <!-- Gradient header -->
           <div
             class="relative p-8 pb-10"
@@ -250,7 +250,7 @@ const programs = [
       <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {
           programs.map((program) => (
-            <div class="bg-background shadow-[0_0_16px_0_rgba(0,0,0,0.08)]flex flex-col rounded-[var(--radius-xl)] border border-[var(--color-border)] p-8">
+            <div class="bg-background shadow-soft flex flex-col rounded-xl border border-[var(--color-border)] p-8">
               <Heading level={3} size="xl">
                 {program.title}
               </Heading>

@@ -45,10 +45,15 @@
   --text-7xl: 4.5rem;
 
   /* Radii */
-  --radius-sm: 0.25rem; /* 4px */
-  --radius-md: 0.75rem; /* 12px — input pills, small cards */
-  --radius-lg: 1.5rem; /* 24px — featured cards / dark blocks */
-  --radius-full: 9999px; /* pill buttons */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.75rem;   /* 12px — input pills, small cards */
+  --radius-lg: 1.5rem;    /* 24px — featured cards / dark blocks */
+  --radius-xl: 1.25rem;   /* 20px — academy cards */
+  --radius-2xl: 1.5rem;   /* 24px — pricing cards */
+  --radius-full: 9999px;  /* pill buttons */
+
+  /* Shadows */
+  --shadow-soft: 0 0 16px 0 rgba(0, 0, 0, 0.08); /* ambient card lift */
 
   /* Spacing scale uses Tailwind defaults (4px increments) */
 }
