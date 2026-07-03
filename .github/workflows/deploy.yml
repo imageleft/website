@@ -33,6 +33,7 @@ jobs:
 
       - run: pnpm build
         env:
+          CONTENT_SOURCE: http
           BACKOFFICE_URL: ${{ secrets.BACKOFFICE_URL }}
 
       - uses: actions/upload-pages-artifact@v3
